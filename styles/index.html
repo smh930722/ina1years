@@ -1,0 +1,575 @@
+<title>이나 초대장 스타일북</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;800&family=IBM+Plex+Sans+KR:wght@400;600&family=Noto+Serif+KR:wght@400;700&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;800&family=Nanum+Pen+Script&family=Gaegu:wght@400;700&family=Jua&family=Do+Hyeon&family=Black+Han+Sans&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Song+Myung&family=Gamja+Flower&family=Yeon+Sung&family=Dongle:wght@400;700&family=Orbit&family=Gasoek+One&family=Bagel+Fat+One&family=East+Sea+Dokdo&family=Hi+Melody&family=Grandiflora+One&family=Black+And+White+Picture&display=swap">
+<style>
+/* Layout: 카탈로그. 조용한 셀라돈 톤 바탕 위에 118장의 미니 초대장이 카테고리별 그리드로 놓이고, 찜한 것은 하단 트레이에 모인다. */
+:root{
+  --bg:#f1f3ef; --surface:#ffffff; --fg:#1d2320; --muted:#646e68; --line:#d9dfd8; --chip:#e4e9e2; --accent:#c8372d;
+  --display:'Hahmlet','Noto Serif KR',serif; --body:'IBM Plex Sans KR',system-ui,-apple-system,'Malgun Gothic',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121514;--surface:#1a1e1c;--fg:#e6eae6;--muted:#97a199;--line:#2a302d;--chip:#232926;--accent:#ff6b5e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121514;--surface:#1a1e1c;--fg:#e6eae6;--muted:#97a199;--line:#2a302d;--chip:#232926;--accent:#ff6b5e;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.6}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:40px 140px}
+@media (max-width:480px){.wrap{padding-inline:16px;padding-block:24px 140px}}
+header .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,6vw,56px);line-height:1.1;margin:10px 0 0;text-wrap:balance;letter-spacing:-.01em}
+.saek{display:flex;height:6px;width:160px;margin:18px 0 20px;border-radius:3px;overflow:hidden}
+.saek i{flex:1}
+.lead{max-width:62ch;color:var(--fg);margin:0}
+.lead b{font-weight:600}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:28px}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+.note h2{font-size:13px;letter-spacing:.06em;margin:0 0 6px;color:var(--muted);font-weight:600}
+.note p{margin:0;font-size:14px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:14px;margin-top:28px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1 1 520px;min-width:0;scrollbar-width:none;padding-block:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid transparent;background:var(--chip);color:var(--fg);font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.chip span{color:var(--muted);margin-left:4px;font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.chip[aria-pressed="true"] span{color:inherit;opacity:.7}
+.chip:focus-visible,.fav:focus-visible,.pvbtn:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.search{flex:0 1 220px;min-width:0;font:inherit;font-size:14px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg)}
+.group{margin-top:44px}
+.group header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:16px}
+.group h2{font-family:var(--display);font-weight:600;font-size:24px;margin:0}
+.group header p{margin:0;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:24px 16px}
+@media (max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}}
+.item{min-width:0;display:flex;flex-direction:column;gap:10px}
+.pvbtn{all:unset;cursor:zoom-in;display:block;border-radius:10px;transition:transform .2s ease, box-shadow .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.08),0 6px 18px -10px rgba(0,0,0,.35)}
+.pvbtn:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0,0,0,.08),0 14px 28px -12px rgba(0,0,0,.4)}
+.meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+.row1{display:flex;align-items:center;gap:6px}
+.no{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.rec{font-size:11px;font-weight:600;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px;line-height:18px}
+.fav{margin-left:auto;all:unset;margin-left:auto;cursor:pointer;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;color:var(--muted)}
+.fav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8}
+.fav[aria-pressed="true"]{color:var(--accent)}
+.fav[aria-pressed="true"] svg{fill:currentColor}
+.item h3{margin:0;font-size:15px;font-weight:600;line-height:1.35}
+.en{margin:0;font-size:12px;color:var(--muted)}
+.d{margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--fg);opacity:.85}
+.sw{display:flex;gap:4px;margin-top:6px}
+.sw i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.empty{margin-top:60px;color:var(--muted);text-align:center}
+/* 미니 초대장 */
+.pv{position:relative;aspect-ratio:180/280;max-width:100%;container-type:inline-size;overflow:hidden;border-radius:10px;isolation:isolate}
+.pv>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cx{position:absolute}
+.tx{position:absolute;left:8%;right:8%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.8cqw;color:var(--ink)}
+.tx.nw{left:18%;right:18%}
+.pos-c{top:50%;transform:translateY(-50%)}
+.pos-t{top:9%}
+.pos-b{bottom:8%}
+.pos-bl{bottom:8%;align-items:flex-start;text-align:left}
+.pos-tl{top:8%;align-items:flex-start;text-align:left}
+.tx .ey{font-size:3.4cqw;letter-spacing:.22em;opacity:.85}
+.tx .ti{font-size:calc(10.6cqw * var(--fs,1));line-height:1.15;font-weight:var(--fw,400);text-wrap:balance}
+.tx.sm .ti{font-size:calc(8.6cqw * var(--fs,1))}
+.tx.xl .ti{font-size:calc(19cqw * var(--fs,1));line-height:1}
+.tx .sb{font-size:calc(3.9cqw * var(--fs,1));opacity:.85}
+.tx.card{background:var(--cardbg);padding:5cqw 4cqw;border-radius:2cqw;left:12%;right:12%}
+.fx-chrome .ti{background:linear-gradient(180deg,#fff 0%,var(--ink) 45%,#fff 55%,var(--ink) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fx-gold .ti{background:linear-gradient(135deg,var(--a1),var(--a2) 50%,var(--a1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.fx-neon .ti{text-shadow:0 0 1.5cqw var(--a1),0 0 4cqw var(--a1)}
+.fx-press .ti{text-shadow:0 .25cqw 0 rgba(255,255,255,.9),0 -.15cqw 0 rgba(0,0,0,.25)}
+/* 하단 트레이 */
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 24px -16px rgba(0,0,0,.4)}
+.tray-in{max-width:1240px;margin:0 auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.tray-list{flex:1 1 300px;min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin}
+.tray-list button{all:unset;cursor:pointer;flex:none;font-size:13px;background:var(--chip);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.tray strong{font-size:14px;white-space:nowrap}
+.btn{font:inherit;font-size:14px;font-weight:600;border:0;border-radius:999px;padding:8px 16px;cursor:pointer;background:var(--fg);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:400}
+.tray textarea{width:100%;font:inherit;font-size:13px;min-height:90px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:8px}
+/* 크게 보기 */
+.ov{position:fixed;inset:0;z-index:30;background:rgba(10,14,12,.6);display:flex;align-items:center;justify-content:center;padding:16px}
+.panel{background:var(--surface);color:var(--fg);border-radius:16px;max-width:760px;width:100%;max-height:calc(100% - 16px);overflow:auto;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;padding:24px}
+@media (max-width:640px){.panel{grid-template-columns:minmax(0,1fr);gap:18px;padding:16px}.panel .pvbig{max-width:260px;margin:0 auto;width:100%}}
+.panel .pvbig .pv{border-radius:12px;box-shadow:0 10px 30px -14px rgba(0,0,0,.5)}
+.pinfo{display:flex;flex-direction:column;gap:10px;min-width:0}
+.pinfo h2{font-family:var(--display);font-size:28px;margin:0;line-height:1.2;text-wrap:balance}
+.pinfo .en{font-size:13px}
+.pinfo dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:6px 0 0;font-size:14px}
+.pinfo dt{color:var(--muted)}
+.pinfo dd{margin:0;min-width:0}
+.hexes{display:flex;flex-wrap:wrap;gap:8px}
+.hexes span{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-variant-numeric:tabular-nums}
+.hexes i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.why{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:14px;margin:0}
+.pnav{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;padding-top:8px}
+.sources{margin-top:72px;border-top:1px solid var(--line);padding-top:24px;font-size:13px;color:var(--muted)}
+.sources h2{font-size:14px;color:var(--fg);margin:0 0 8px}
+.sources ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.sources a{color:inherit}
+@media (prefers-reduced-motion:reduce){.pvbtn{transition:none}.pvbtn:hover{transform:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">이나 첫돌 · 초대장 방향 고르기</div>
+    <h1>이나 초대장 스타일북</h1>
+    <div class="saek" aria-hidden="true"><i style="background:#d9433b"></i><i style="background:#f2b632"></i><i style="background:#3a8f5c"></i><i style="background:#3b67b0"></i><i style="background:#e98bb0"></i><i style="background:#7a4fa0"></i></div>
+    <p class="lead">국내 모바일 초대장 서비스, 해외 1st birthday 테마, 2026년 디자인 트렌드를 훑어서 <b><span id="total">118</span>가지 방향</b>으로 정리했어요. 카드를 누르면 크게 보이고, 하트로 찜해 두면 아래에 모여요. 찜한 목록을 복사해서 채팅에 붙여 주시면 그걸로 좁혀 나갈게요.</p>
+    <div class="notes">
+      <section class="note"><h2>장소 기본 초대장</h2><p>돌잔치·웨딩·고희연 공용 템플릿 중에서 고르는 방식이에요. 메인·갤러리·초대글·덕담게시판 구성은 갖췄지만, 사진만 바꿔 끼운 느낌이라 이나만의 이야기가 없어요.</p></section>
+      <section class="note"><h2>요즘 흐름</h2><p>국내는 아치형 사진과 단정한 세리프가 주류예요. 해외는 Wild One, Berry First 같은 말장난 테마가 강하고, 2026년엔 젤리 질감, 일부러 서툰 손그림, 메모앱 감성이 떠올랐어요.</p></section>
+      <section class="note"><h2>어떤 스타일이든 꼭 들어갈 것</h2><p>일시·장소와 지도 링크, 성장 사진 갤러리, 참석 여부, 축하 메시지. 여기 고르는 스타일은 이 내용 위에 입히는 옷이에요.</p></section>
+    </div>
+  </header>
+
+  <nav class="bar" aria-label="스타일 필터">
+    <div class="chips" id="chips"></div>
+    <input class="search" id="q" type="search" placeholder="이름·키워드 검색" aria-label="스타일 검색">
+  </nav>
+
+  <main id="groups"></main>
+  <p class="empty" id="empty" hidden>조건에 맞는 스타일이 없어요. 필터를 ‘전체’로 바꿔 보세요.</p>
+
+  <section class="sources">
+    <h2>조사한 곳</h2>
+    <ul>
+      <li><a href="https://www.dejavu-m.com/main/main.php" target="_blank" rel="noopener">데자뷰 스마트 초대장 (장소 기본 제공)</a></li>
+      <li><a href="https://mcard.barunsoncard.com/" target="_blank" rel="noopener">바른손 M카드 모바일 초대장</a></li>
+      <li><a href="https://bojagicard.com/mcard/" target="_blank" rel="noopener">보자기카드 모바일 청첩장</a></li>
+      <li><a href="https://www.itscard.co.kr/script/mbirth/mbirth_view.asp?CardCode=MBirth01" target="_blank" rel="noopener">잇츠카드 모바일 돌잔치 초대장</a></li>
+      <li><a href="https://www.miricanvas.com/ko/template/all-types/%EB%8F%8C%EC%9E%94%EC%B9%98" target="_blank" rel="noopener">미리캔버스 돌잔치 템플릿</a></li>
+      <li><a href="https://www.paperlesspost.com/blog/first-birthday-party-themes-and-ideas/" target="_blank" rel="noopener">Paperless Post · 40 first birthday themes</a></li>
+      <li><a href="https://www.minted.com/first-birthday-invitations" target="_blank" rel="noopener">Minted · First Birthday Invitations</a></li>
+      <li><a href="https://www.canva.com/invitations/templates/1st-birthday/" target="_blank" rel="noopener">Canva · 1st birthday invitation templates</a></li>
+      <li><a href="https://partybabyessentials.com/blogs/party-baby-essentials/best-kids-birthday-invitation-themes-for-2026" target="_blank" rel="noopener">Party Baby Essentials · 2026 invitation themes</a></li>
+      <li><a href="https://design.co.kr/article/142896/" target="_blank" rel="noopener">디자인프레스 · 키워드로 살펴본 2026 디자인 트렌드</a></li>
+      <li><a href="https://start.litt.ly/blog/how-to-make-free-mobile-invitation" target="_blank" rel="noopener">리틀리 · 무료 모바일 초대장 만들기</a></li>
+    </ul>
+  </section>
+</div>
+
+<div class="tray" id="tray" hidden>
+  <div class="tray-in">
+    <strong id="trayCount">찜 0개</strong>
+    <div class="tray-list" id="trayList"></div>
+    <button class="btn" id="copyBtn" type="button">목록 복사</button>
+    <button class="btn ghost" id="clearBtn" type="button">비우기</button>
+    <textarea id="copyArea" readonly hidden aria-label="복사할 목록"></textarea>
+  </div>
+</div>
+
+<div class="ov" id="ov" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle">
+    <div class="pvbig" id="pBig"></div>
+    <div class="pinfo">
+      <div class="row1"><span class="no" id="pNo"></span><span class="rec" id="pRec" hidden>추천</span></div>
+      <h2 id="pTitle"></h2>
+      <p class="en" id="pEn"></p>
+      <p style="margin:0" id="pDesc"></p>
+      <p class="why" id="pWhy" hidden></p>
+      <dl>
+        <dt>분류</dt><dd id="pCat"></dd>
+        <dt>색</dt><dd><div class="hexes" id="pHex"></div></dd>
+        <dt>글꼴</dt><dd id="pFont"></dd>
+        <dt>만들기</dt><dd id="pLv"></dd>
+      </dl>
+      <div class="pnav">
+        <button class="btn" id="pFav" type="button">찜하기</button>
+        <button class="btn ghost" id="pPrev" type="button">이전</button>
+        <button class="btn ghost" id="pNext" type="button">다음</button>
+        <button class="btn ghost" id="pClose" type="button">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const W=180,H=280;
+const hx=h=>{h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');return[0,2,4].map(i=>parseInt(h.substr(i,2),16))};
+const mix=(a,b,t)=>{const A=hx(a),B=hx(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+const norm=h=>mix(h,h,0);
+const rng=s=>()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const R=(x,y,w,h,f,e='')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}" ${e}/>`;
+const C=(x,y,r,f,e='')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${f}" ${e}/>`;
+const E=(x,y,rx,ry,f,e='')=>`<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${f}" ${e}/>`;
+const P=(d,f,e='')=>`<path d="${d}" fill="${f}" ${e}/>`;
+const T=(x,y,s,f,z,e='')=>`<text x="${x}" y="${y}" fill="${f}" font-size="${z}" ${e}>${s}</text>`;
+const MID='text-anchor="middle"';
+const EDGE=[[22,26],[68,16],[118,22],[160,34],[18,82],[162,90],[24,200],[158,196],[36,252],[90,264],[146,254],[112,236]];
+const heart=(x,y,s,f,a=0)=>`<path transform="translate(${x} ${y}) rotate(${a}) scale(${s})" d="M0 3C0-1-5-1-5 2.2C-5 5 0 8 0 9.5C0 8 5 5 5 2.2C5-1 0-1 0 3Z" fill="${f}"/>`;
+const sparkle=(x,y,s,f)=>`<path transform="translate(${x} ${y}) scale(${s})" d="M0-6Q.8-.8 6 0Q.8.8 0 6Q-.8.8-6 0Q-.8-.8 0-6Z" fill="${f}"/>`;
+const flower=(x,y,r,pf,cf,a=0)=>{let s=`<g transform="rotate(${a} ${x} ${y})">`;for(let k=0;k<5;k++)s+=E(x,y-r*.9,r*.5,r*.9,pf,`transform="rotate(${k*72} ${x} ${y})"`);return s+C(x,y,r*.42,cf)+'</g>'};
+const starPts=(x,y,n,ro,ri,a=0)=>{let pts=[];for(let k=0;k<n*2;k++){const rr=k%2?ri:ro,t=a+k*Math.PI/n-Math.PI/2;pts.push((x+rr*Math.cos(t)).toFixed(1)+','+(y+rr*Math.sin(t)).toFixed(1))}return pts.join(' ')};
+const cloud=(x,y,s,f)=>`<g transform="translate(${x} ${y}) scale(${s})" fill="${f}"><circle cx="0" cy="0" r="10"/><circle cx="13" cy="-7" r="13"/><circle cx="28" cy="-1" r="10"/><rect x="0" y="-3" width="28" height="13" rx="6"/></g>`;
+const fruit={
+  berry:(x,y,s,a,c,l)=>`<g transform="translate(${x} ${y}) rotate(${a}) scale(${s})"><path d="M0-7C7-7 9 1 0 11C-9 1-7-7 0-7Z" fill="${c}"/><path d="M-5-7L0-4L5-7L2-9L0-7L-2-9Z" fill="${l}"/>${C(-3,-1,.8,'#ffe9a8')+C(2,0,.8,'#ffe9a8')+C(-1,4,.8,'#ffe9a8')+C(3,-4,.8,'#ffe9a8')}</g>`,
+  lemon:(x,y,s,a,c,l)=>`<g transform="translate(${x} ${y}) rotate(${a}) scale(${s})">${E(0,0,10,7,c)+C(10,0,1.6,c)+E(5,-8,5,2.4,l,'transform="rotate(-30 5 -8)"')}</g>`,
+  orange:(x,y,s,a,c,l)=>`<g transform="translate(${x} ${y}) rotate(${a}) scale(${s})">${C(0,0,9,c)+E(4,-9,5,2.4,l,'transform="rotate(-25 4 -9)"')+C(-3,-3,2,'#fff','opacity=".35"')}</g>`
+};
+const photoBg=(p,u,top,bot)=>`<defs><linearGradient id="${u}p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bot}"/></linearGradient></defs>`+R(0,0,W,H,`url(#${u}p)`);
+const cake=(p,x,base)=>R(x-50,base-40,100,40,p[2],'rx="4"')+R(x-38,base-70,76,32,p[3],'rx="4"')+P(`M${x-38} ${base-64}q6 8 12 0t12 0t12 0t12 0t12 0t12 0t4 0V${base-70}H${x-38}Z`,'#fff','opacity=".9"')+E(x,base+2,64,5,mix(p[1],'#ffffff',.75))+R(x-3,base-94,6,24,'#fff',`stroke="${p[1]}" stroke-width=".6"`)+E(x,base-101,4,7,'#ffb43a');
+
+const M={
+saekdong:p=>({s:['#d9433b','#f2b632','#3a8f5c','#3b67b0','#e98bb0','#ffffff','#7a4fa0'].map((c,i)=>R(0,i*13,W,13,c)).join('')+R(0,91,W,1.2,p[1],'opacity=".4"'),pos:'b'}),
+hanji:(p,r)=>{let s='';for(let i=0;i<60;i++){const x=r()*W,y=r()*H,l=8+r()*22,a=r()*6.28;s+=P(`M${x.toFixed(1)} ${y.toFixed(1)}q${(l/2).toFixed(1)} ${((r()-.5)*6).toFixed(1)} ${(l*Math.cos(a)).toFixed(1)} ${(l*Math.sin(a)).toFixed(1)}`,'none',`stroke="${p[3]}" stroke-width=".5" opacity=".35"`)}
+  s+=C(90,140,52,'none',`stroke="${p[1]}" stroke-width="6" opacity=".12" stroke-dasharray="270 60" stroke-linecap="round"`)+R(128,214,22,22,p[2],'rx="2"')+T(139,229,'이나','#fff',8,`${MID} font-family="Song Myung"`);return{s,pos:'c'}},
+bojagi:(p,r)=>{const cs=[p[2],p[3],mix(p[2],'#fff',.45),mix(p[3],'#fff',.5),'#e9cf8f',mix(p[0],p[1],.08)];let s='';for(let y=0;y<150;y+=30){let x=0;while(x<W){const w=Math.min(W-x,28+r()*50);s+=R(x.toFixed(1),y,w.toFixed(1),30,cs[Math.floor(r()*cs.length)],`stroke="${p[0]}" stroke-width="1.5"`);x+=w}}return{s,pos:'b'}},
+dancheong:p=>{let s=R(0,0,W,36,p[3])+R(0,H-36,W,36,p[3])+R(0,36,W,3,'#f2c14e')+R(0,H-39,W,3,'#f2c14e');for(let x=10;x<W;x+=20)for(const y of[18,H-18])s+=`<polygon points="${x},${y-12} ${x+9},${y} ${x},${y+12} ${x-9},${y}" fill="${p[2]}"/>`+C(x,y,3.5,'#f2c14e');return{s,pos:'c'}},
+ilwol:p=>({s:C(40,112,13,p[2])+C(140,112,11,'#f6f1e3')+P('M0 280V215L22 190L40 205L60 160L78 195L90 150L102 195L120 160L140 205L158 190L180 215V280Z',p[3])+P('M0 280V240Q45 215 90 242T180 235V280Z',mix(p[3],'#000000',.25)),pos:'t'}),
+moonjar:(p,r,o,u)=>({s:`<defs><radialGradient id="${u}m" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="${p[3]}"/></radialGradient></defs>`+E(90,176,40,6,p[1],'opacity=".14"')+E(90,108,60,64,`url(#${u}m)`)+E(90,46,22,5,mix(p[3],p[1],.25)),pos:'b'}),
+doljabi:p=>{const L=['실','연필','돈','마이크','청진기','책','공','판사봉'];let s=C(90,100,54,'none',`stroke="${p[1]}" stroke-width=".7" stroke-dasharray="2 3" opacity=".5"`);L.forEach((t,i)=>{const a=i/L.length*6.283-1.57,x=(90+54*Math.cos(a)).toFixed(1),y=(100+54*Math.sin(a)).toFixed(1);s+=C(x,y,15,i%2?p[3]:p[2])+T(x,+y+3,t,'#fff',t.length>2?6:8,`${MID} font-family="Jua"`)});s+=T(90,106,'돌잡이',p[1],15,`${MID} font-family="Jua"`);return{s,pos:'b'}},
+jagae:(p,r,o,u)=>{let s=`<defs><linearGradient id="${u}j" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p[2]}"/><stop offset=".5" stop-color="#f4f0ff"/><stop offset="1" stop-color="${p[3]}"/></linearGradient></defs>`;for(let i=0;i<16;i++){const[x,y]=EDGE[i%12];s+=`<path d="M0-9C6-9 9-3 0 9C-9-3-6-9 0-9Z" fill="url(#${u}j)" opacity=".9" transform="translate(${(x+(r()-.5)*16).toFixed(1)} ${(y+(r()-.5)*16).toFixed(1)}) rotate(${(r()*360).toFixed(0)}) scale(${(.8+r()*.8).toFixed(2)})"/>`}return{s:s+R(10,10,160,260,'none',`stroke="${p[2]}" stroke-width=".6" opacity=".6"`),pos:'c'}},
+lantern:p=>{let s=R(0,8,W,1.2,'#e9c46a');[[52,p[2]],[128,p[3]]].forEach(([x,c],i)=>{const y=34+i*14;s+=R(x-.5,8,1,y-8,'#e9c46a')+R(x-17,y,34,52,c,'rx="12"')+R(x-17,y+4,34,4,'#e9c46a')+R(x-17,y+44,34,4,'#e9c46a')+E(x,y+26,10,20,'#ffffff','opacity=".18"')+R(x-.6,y+52,1.2,18,'#e9c46a')});return{s,pos:'b'}},
+munsal:p=>{let s='';for(let x=11;x<W;x+=22)s+=R(x-1,0,2,H,p[2]);for(let y=8;y<H;y+=22)s+=R(0,y-1,W,2,p[2]);return{s:s+R(22,88,136,104,p[0],`stroke="${p[2]}" stroke-width="4"`),pos:'c',sm:1}},
+subok:p=>{let s='',k=0;for(let y=24;y<H+20;y+=34)for(let x=((y-24)/34%2)*17+8;x<W+10;x+=34)s+=T(x,y,k++%2?'福':'壽',p[3],16,`${MID} font-family="Song Myung,serif" opacity=".55"`);return{s:s+R(18,100,144,80,p[0],'opacity=".93" rx="4"'),pos:'c'}},
+plain:p=>({s:R(16,30,22,1.5,p[1]),pos:'bl'}),
+bignum:p=>({s:T(92,272,'1',p[2],250,`${MID} font-family="Gasoek One,sans-serif"`),pos:'t'}),
+grid:p=>{let s='';for(let x=30;x<W;x+=30)s+=R(x,0,.5,H,p[3]);for(let y=30;y<H;y+=30)s+=R(0,y,W,.5,p[3]);return{s:s+R(120,30,30,30,p[2])+T(16,50,'1st',p[1],12,'font-family="IBM Plex Sans KR" font-weight="600"'),pos:'bl'}},
+photo:(p,r,o,u)=>({s:photoBg(p,u,mix(p[0],'#ffffff',.3),p[0])+C(90,92,30,p[2],'opacity=".5"')+E(90,172,54,46,p[2],'opacity=".4"'),pos:'b'}),
+arch:p=>({s:P('M34 196V92A56 56 0 0 1 146 92V196Z',p[3],`stroke="${p[2]}" stroke-width="1"`)+P('M40 190V93A50 50 0 0 1 140 93V190Z','none',`stroke="${p[2]}" stroke-width=".5"`),pos:'b',sm:1}),
+block:p=>({s:R(0,150,W,130,p[2])+C(140,150,16,p[0]),pos:'t'}),
+tag:p=>({s:P('M44 74L90 44L136 74V250H44Z',p[2],`stroke="${p[3]}" stroke-width="1"`)+C(90,66,5,p[0],`stroke="${p[3]}"`)+P('M90 66C70 34 110 24 96 0','none',`stroke="${p[3]}" stroke-width="1.2"`),pos:'c',sm:1,nw:1,ti:'이나의<br>첫 생일'}),
+editorial:p=>{let s=R(16,100,148,1.2,p[1])+R(16,104,148,.5,p[1])+R(16,114,148,70,mix(p[3],p[0],.55));for(let c=0;c<2;c++)for(let y=196;y<266;y+=6)s+=R(16+c*78,y,y%18===0?50:70,2,p[3]);return{s,pos:'tl'}},
+gallery:p=>({s:R(16,16,148,160,p[2])+C(90,96,30,mix(p[2],p[3],.3)),pos:'bl',ey:'INA 展 · 365 DAYS'}),
+kraft:p=>({s:C(90,104,48,'none',`stroke="${p[1]}" stroke-width="1.5"`)+C(90,104,42,'none',`stroke="${p[1]}" stroke-width=".6" stroke-dasharray="1.5 2.5"`)+T(90,100,'MADE WITH',p[1],7,`${MID} letter-spacing="1.5" font-family="IBM Plex Sans KR"`)+T(90,118,'LOVE',p[1],14,`${MID} font-family="IBM Plex Sans KR" font-weight="600"`),pos:'b'}),
+monoline:p=>({s:P('M-10 200C30 130 60 260 90 190S120 130 140 170 170 240 190 180','none',`stroke="${p[1]}" stroke-width="1.4" stroke-linecap="round"`)+heart(140,160,1.3,'none').replace('fill="none"',`fill="none" stroke="${p[1]}" stroke-width=".9"`),pos:'t'}),
+gradient:(p,r,o,u)=>({s:`<defs><filter id="${u}b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter></defs><g filter="url(#${u}b)">${C(40,60,60,p[2])+C(150,150,70,p[3])+C(60,250,60,'#e6d4ff')}</g>`,pos:'c'}),
+clouds:p=>({s:cloud(10,50,1.3,p[2])+cloud(112,34,1,p[2])+cloud(118,222,1.5,p[2])+cloud(6,240,1.1,p[3])+cloud(130,96,.7,p[3]),pos:'c'}),
+ribbon:p=>({s:P('M90 76C62 40 30 52 40 82C48 104 74 92 90 76Z',p[2])+P('M90 76C118 40 150 52 140 82C132 104 106 92 90 76Z',p[2])+P('M86 78L64 150L76 144L82 158L92 80Z',p[3])+P('M94 78L116 150L104 144L98 158L88 80Z',p[3])+E(90,77,9,8,p[3]),pos:'b'}),
+fruit:(p,r,o)=>({s:EDGE.map(([x,y])=>fruit[o](x,y,(1.2+r()*.5).toFixed(2),(r()*50-25).toFixed(0),p[2],p[3])).join(''),pos:'c',ey:{berry:'BERRY FIRST BIRTHDAY',lemon:'LITTLE LEMON',orange:'LITTLE CUTIE'}[o]}),
+hearts:(p,r)=>({s:EDGE.map(([x,y],i)=>heart(x,y,(1.6+r()).toFixed(2),i%2?p[2]:p[3],(r()*50-25).toFixed(0))).join(''),pos:'c'}),
+dots:(p,r,o,u)=>({s:`<defs><pattern id="${u}d" width="24" height="24" patternUnits="userSpaceOnUse">${C(6,6,4,p[2])+C(18,18,4,p[3])}</pattern></defs>`+R(0,0,W,H,`url(#${u}d)`),pos:'c',card:1}),
+gingham:p=>({bg:`repeating-linear-gradient(0deg,${p[2]}aa 0 4.5%,transparent 4.5% 9%),repeating-linear-gradient(90deg,${p[2]}aa 0 7%,transparent 7% 14%),${p[0]}`,pos:'c',card:1}),
+stripes:p=>({bg:`repeating-linear-gradient(90deg,${p[2]} 0 8%,${p[3]} 8% 16%)`,pos:'c',card:1}),
+macaron:p=>{const cs=[p[2],p[3],'#fbe2a4','#d9c8f2'];let s='';cs.forEach((c,i)=>{const y=252-i*24,w=40-i*4;s+=E(90,y+5,w,9,mix(c,'#000000',.08))+R(90-w+3,y-2,(w-3)*2,6,'#fff8ee','rx="3"')+E(90,y-5,w,9,c)});return{s,pos:'t'}},
+bunny:p=>({s:E(68,62,12,38,p[2],'transform="rotate(-10 68 62)"')+E(68,66,6,28,p[3],'transform="rotate(-10 68 66)"')+E(112,62,12,38,p[2],'transform="rotate(10 112 62)"')+E(112,66,6,28,p[3],'transform="rotate(10 112 66)"')+C(90,120,44,p[2])+C(74,116,3,p[1])+C(106,116,3,p[1])+E(90,126,4,3,p[3])+C(66,130,7,p[3],'opacity=".6"')+C(114,130,7,p[3],'opacity=".6"'),pos:'b',ey:'SOME BUNNY IS ONE'}),
+flowers:(p,r)=>({s:EDGE.map(([x,y])=>flower(x,y,(6+r()*4).toFixed(1),p[2],p[3],(r()*72).toFixed(0))).join(''),pos:'c'}),
+storybook:p=>({s:R(10,10,160,260,'none',`stroke="${p[2]}" stroke-width="3"`)+R(16,16,148,248,'none',`stroke="${p[3]}" stroke-width="1"`)+[[16,16],[164,16],[16,264],[164,264]].map(([x,y])=>C(x,y,5,p[2])).join('')+C(90,64,14,p[2])+Array.from({length:8},(_,k)=>P(`M90 64L${(90+26*Math.cos(k*.785)).toFixed(1)} ${(64+26*Math.sin(k*.785)).toFixed(1)}`,'none',`stroke="${p[2]}" stroke-width="1.2"`)).join('')+P('M16 264V222Q60 194 100 224T164 212V264Z',p[3],'opacity=".5"'),pos:'c',ey:'옛날 옛적에'}),
+watercolor:(p,r,o,u)=>({s:`<defs><filter id="${u}w" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter></defs><g filter="url(#${u}w)" opacity=".75">${E(30,40,50,36,p[2])+E(160,80,40,50,p[3])+E(20,240,46,40,p[3])+E(160,250,50,36,p[2])}</g>`,pos:'c'}),
+scribble:(p,r)=>{const cs=[p[2],p[3],'#f5c842','#7cc46a'];let s='';EDGE.forEach(([x,y],i)=>{let d=`M${x} ${y}`;for(let k=0;k<4;k++)d+=` q${((r()-.5)*30).toFixed(1)} ${((r()-.5)*30).toFixed(1)} ${((r()-.5)*26).toFixed(1)} ${((r()-.5)*26).toFixed(1)}`;s+=P(d,'none',`stroke="${cs[i%4]}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"`)});return{s,pos:'c'}},
+collage:(p,r)=>{const cs=[p[2],p[3],'#f2d36b',mix(p[2],'#ffffff',.5)];let s='';[[24,30,74,62],[108,18,62,84],[18,196,82,64],[104,204,70,60]].forEach(([x,y,w,h],i)=>s+=R(x,y,w,h,cs[i],`transform="rotate(${((r()-.5)*20).toFixed(1)} ${x+w/2} ${y+h/2})"`));return{s:s+R(22,94,136,92,'#fffdf6','transform="rotate(-2 90 140)"')+R(70,88,40,10,'#f3e6b5','opacity=".85" transform="rotate(-6 90 93)"'),pos:'c',sm:1}},
+stitch:p=>({s:R(14,14,152,252,'none',`stroke="${p[3]}" stroke-width="2" stroke-dasharray="5 4" rx="14"`)+E(90,140,74,58,p[2])+E(90,140,68,52,'none',`stroke="${p[3]}" stroke-width="1.2" stroke-dasharray="3 3"`)+[[30,40],[150,40],[30,240],[150,240]].map(([x,y])=>P(`M${x-4} ${y-4}L${x+4} ${y+4}M${x+4} ${y-4}L${x-4} ${y+4}`,'none',`stroke="${p[3]}" stroke-width="1.6"`)).join(''),pos:'c',sm:1}),
+blocks:p=>({s:[['I',p[2],36,-6],['N',p[3],90,4],['A','#e46b5b',144,-3]].map(([l,c,x,a])=>`<g transform="translate(${x} 218) rotate(${a})">${R(-22,-22,44,44,c,'rx="4"')+R(-17,-17,34,34,'none','stroke="#fff" stroke-width="1.5" rx="2"')+T(0,10,l,'#fff',28,`${MID} font-family="Jua"`)}</g>`).join(''),pos:'t'}),
+stars:(p,r)=>{let s='';for(let i=0;i<40;i++)s+=C((r()*W).toFixed(1),(r()*H).toFixed(1),(r()*1.2+.3).toFixed(2),p[1],'opacity=".7"');EDGE.slice(0,8).forEach(([x,y])=>s+=sparkle(x,y,(.6+r()*.6).toFixed(2),p[2]));return{s:s+C(140,58,22,p[2])+C(149,51,19,p[0]),pos:'c'}},
+parade:p=>{const cs=[p[2],p[3],'#e9967a','#9fb8d9','#d9b38c'];let s=R(0,246,W,34,mix(p[3],'#ffffff',.3));cs.forEach((c,i)=>{const x=22+i*34,y=228;s+=C(x-11,y-13,6,c)+C(x+11,y-13,6,c)+C(x,y,16,c)+C(x-5,y-2,1.6,p[1])+C(x+5,y-2,1.6,p[1])+E(x,y+5,4,2.6,mix(c,'#ffffff',.5))});return{s,pos:'t'}},
+bear:p=>({s:C(48,68,17,p[2])+C(132,68,17,p[2])+C(48,68,9,p[3])+C(132,68,9,p[3])+C(90,112,50,p[2])+E(90,128,20,14,p[3])+E(90,122,7,5,p[1])+C(72,104,4,p[1])+C(108,104,4,p[1]),pos:'b'}),
+clay:(p,r,o,u)=>({s:`<defs><radialGradient id="${u}c" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>`+[[30,50,34,p[2]],[156,76,26,p[3]],[26,232,28,p[3]],[150,236,38,p[2]],[104,26,14,'#ffd36b']].map(([x,y,rr,c])=>E(x+3,y+5,rr,rr*.92,mix(c,'#000000',.18))+E(x,y,rr,rr*.92,c)+E(x,y,rr,rr*.92,`url(#${u}c)`)).join(''),pos:'c'}),
+woodland:p=>{let s='';[[24,250,26],[60,262,34],[150,252,30],[118,264,22]].forEach(([x,y,h])=>s+=P(`M${x} ${y-h*2}L${x+h*.7} ${y}H${x-h*.7}Z`,p[2])+R(x-2,y,4,8,mix(p[2],'#000000',.4)));s+=R(0,266,W,14,mix(p[2],'#000000',.25));[[92,262,9],[102,264,6]].forEach(([x,y,w])=>s+=R(x-w*.3,y-w*.9,w*.6,w*.9,'#f6efe0')+P(`M${x-w} ${y-w*.8}A${w} ${w*.8} 0 0 1 ${x+w} ${y-w*.8}Z`,p[3]));return{s,pos:'t'}},
+sunset:p=>{let s=C(90,240,74,p[3])+C(90,240,56,p[2]);for(let i=0;i<5;i++)s+=R(0,204+i*8,W,1.5+i*.9,p[0]);return{s:s+R(0,240,W,40,p[1]),pos:'t'}},
+memphis:p=>{let s=`<polygon points="20,40 54,20 46,62" fill="${p[2]}"/>`+P('M114 30l10 10l10-10l10 10l10-10l10 10','none',`stroke="${p[1]}" stroke-width="3"`)+C(150,84,14,'#f5c842')+C(32,228,18,'none',`stroke="${p[3]}" stroke-width="5"`)+R(118,214,40,40,p[3],'transform="rotate(20 138 234)"');for(let x=20;x<64;x+=8)for(let y=252;y<276;y+=8)s+=C(x,y,1.6,p[1]);return{s:s+P('M120 270q10-14 20 0t20 0','none',`stroke="${p[2]}" stroke-width="3"`),pos:'c',card:1}},
+y2k:(p,r,o,u)=>({s:`<defs><linearGradient id="${u}y" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="${p[2]}"/><stop offset=".6" stop-color="#fff"/><stop offset="1" stop-color="${p[3]}"/></linearGradient></defs>`+E(90,140,82,62,`url(#${u}y)`,'opacity=".75"')+EDGE.map(([x,y])=>sparkle(x,y,(.8+r()).toFixed(2),'#fff')).join(''),pos:'c',fx:'chrome'}),
+film:p=>{let s=R(0,0,26,H,p[3])+R(154,0,26,H,p[3]);for(let y=6;y<H;y+=16)s+=R(8,y,10,8,p[0],'rx="1.5"')+R(162,y,10,8,p[0],'rx="1.5"');return{s:s+R(34,22,112,70,mix(p[3],p[2],.25))+R(34,188,112,70,mix(p[3],p[2],.25)),pos:'c',sm:1,nw:1,ti:'이나의<br>첫 생일'}},
+ticket:p=>({html:`<div class="cx" style="top:13%;bottom:13%;left:10%;right:10%;background:${p[2]};color:${p[0]};border-radius:3cqw;display:flex;flex-direction:column;overflow:hidden"><div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.4cqw;padding:4cqw;text-align:center"><span style="font-size:3.4cqw;letter-spacing:.25em">NOW SHOWING</span><b style="font-size:11cqw;line-height:1.1;font-weight:400">이나의<br>첫 생일</b><span style="font-size:3.6cqw">전체관람가 · 상영시간 365일</span></div><div style="border-top:.8cqw dashed ${p[0]};padding:3.4cqw;text-align:center;font-size:4cqw;letter-spacing:.3em;background:${p[3]};color:#fff">ADMIT ONE</div></div>`,noText:1}),
+tv:p=>({s:R(18,78,144,124,p[2],'rx="16"')+R(28,88,124,104,'#1d2422','rx="10"')+P('M70 78L50 40M110 78L130 40','none',`stroke="${p[1]}" stroke-width="2"`)+C(50,40,3,p[1])+C(130,40,3,p[1])+R(40,202,10,14,p[1])+R(130,202,10,14,p[1])+C(140,96,2.6,p[3]),pos:'c',sm:1,ink:'#f4ead2',ey:'ON AIR',ti:'이나의<br>첫 생일',sb:'특집 생방송'}),
+stamp:p=>{let s=R(30,56,120,168,'#fffaf0');for(let x=30;x<=150;x+=8)s+=C(x,56,3.2,p[0])+C(x,224,3.2,p[0]);for(let y=56;y<=224;y+=8)s+=C(30,y,3.2,p[0])+C(150,y,3.2,p[0]);s+=R(40,66,100,148,'none',`stroke="${p[3]}" stroke-width="1"`)+C(148,62,20,'none',`stroke="${p[2]}" stroke-width="1.2" opacity=".8"`)+P('M104 56q8-4 16 0t16 0t16 0t16 0M104 64q8-4 16 0t16 0t16 0t16 0M104 72q8-4 16 0t16 0t16 0t16 0','none',`stroke="${p[2]}" stroke-width="1" opacity=".8"`);return{s,pos:'c',sm:1,nw:1,ti:'이나의<br>첫 생일',ey:'KOREA',sb:'첫돌 기념우표'}},
+newspaper:p=>({html:`<div class="cx" style="inset:6% 7%;color:${p[1]};display:flex;flex-direction:column;gap:2cqw"><div style="display:flex;justify-content:space-between;font-size:3cqw;border-bottom:.4cqw solid ${p[1]};padding-bottom:1cqw"><span>제1호</span><span>첫돌 특별판</span></div><b style="font-size:16cqw;text-align:center;line-height:1;font-weight:800">이나일보</b><div style="border-top:1cqw double ${p[1]};padding-top:2cqw"><b style="font-size:8cqw;line-height:1.2;font-weight:800">이나, 첫 생일 맞아<br>잔치 연다</b></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:3cqw;flex:1"><div style="background:${mix(p[3],p[0],.4)}"></div><div style="background:repeating-linear-gradient(180deg,${p[3]} 0 .6cqw,transparent .6cqw 2.6cqw)"></div></div><span style="font-size:3.6cqw">소중한 분들을 초대합니다</span></div>`,noText:1}),
+menu:p=>({html:`<div class="cx" style="inset:9% 9%;color:${p[1]};display:flex;flex-direction:column;gap:2.8cqw;border:.6cqw solid ${p[2]};padding:6cqw 5cqw;text-align:center"><span style="font-size:3.6cqw;letter-spacing:.3em;color:${p[2]}">어서 오세요</span><b style="font-size:12cqw;font-weight:400;line-height:1">이나 다방</b><span style="font-size:3.8cqw">첫돌 특별 메뉴</span>${[['미역국','사랑'],['백설기','무병장수'],['수수팥떡','액운 퇴치'],['덕담 한 마디','무료']].map(([a,b])=>`<div style="display:flex;gap:1.5cqw;font-size:4.6cqw;align-items:baseline;text-align:left"><span>${a}</span><span style="flex:1;border-bottom:.5cqw dotted ${p[2]}"></span><span style="color:${p[2]}">${b}</span></div>`).join('')}<span style="margin-top:auto;font-size:3.6cqw;opacity:.8">소중한 분들을 초대합니다</span></div>`,noText:1}),
+sign:p=>{let s=R(20,76,140,128,'none',`stroke="${p[2]}" stroke-width="2" rx="10"`);for(let x=30;x<=150;x+=12)for(const y of[76,204])s+=C(x,y,5,p[2],'opacity=".25"')+C(x,y,2.6,p[2]);for(let y=88;y<=192;y+=13)for(const x of[20,160])s+=C(x,y,5,p[2],'opacity=".25"')+C(x,y,2.6,p[2]);return{s,pos:'c',sm:1,ey:'NOW OPEN',ti:'이나의<br>첫 생일',fx:'neon'}},
+lp:p=>({s:C(90,104,70,'#161616')+[62,52,42,34].map(r=>C(90,104,r,'none','stroke="#2c2c2c" stroke-width="1"')).join('')+C(90,104,24,p[3])+C(90,104,2.5,p[0])+P('M56 62A52 52 0 0 1 124 58','none','stroke="#fff" stroke-width="2" opacity=".18"'),pos:'b',ey:'SIDE A · 첫 1년'}),
+pressed:(p,r)=>{let s='';[[40,1],[90,-1],[140,1]].forEach(([x,dir],i)=>{const top=(150+r()*20).toFixed(0);s+=P(`M${x} 262Q${x+dir*10} ${(262+ +top)/2} ${x} ${top}`,'none',`stroke="${p[3]}" stroke-width="1"`);for(let k=0;k<6;k++)s+=E(x,top-6,2.8,6,i===1?p[3]:p[2],`transform="rotate(${k*60} ${x} ${top})" opacity=".85"`);s+=C(x,top,2,'#e9c46a')+E(x+dir*6,+top+44,2.5,7,p[3],`transform="rotate(${dir*40} ${x+dir*6} ${+top+44})"`)+R(x-11,248,22,8,'#e9dfc5',`opacity=".85" transform="rotate(-5 ${x} 252)"`)});return{s,pos:'t'}},
+leaves:(p,r,o)=>{const br=(x,y,a,sc)=>{let g=`<g transform="translate(${x} ${y}) rotate(${a}) scale(${sc})">`+P('M0 0Q45 6 96 0','none',`stroke="${mix(p[2],'#000000',.3)}" stroke-width="1.2"`);for(let k=1;k<8;k++){const t=k*11;g+=o==='olive'?E(t,-6,3,9,p[2],`transform="rotate(-35 ${t} -6)"`)+E(t+4,6,3,9,p[3],`transform="rotate(35 ${t+4} 6)"`):C(t,-7,6,k%2?p[2]:p[3])+C(t+5,7,5.5,k%2?p[3]:p[2])}return g+'</g>'};return{s:br(-6,40,15,1.1)+br(186,248,195,1.1),pos:'c'}},
+maple:(p,r)=>({s:EDGE.map(([x,y],i)=>`<polygon points="${starPts(x,y,5,8+r()*4,4+r()*1.5,r()*6)}" fill="${[p[2],p[3],'#b8402a'][i%3]}"/>`).join(''),pos:'c'}),
+sunflower:p=>{let s='';for(let k=0;k<16;k++)s+=E(90,198,8,28,p[2],`transform="rotate(${k*22.5} 90 228)"`);s+=C(90,228,24,p[3]);for(let k=0;k<12;k++)s+=C((90+14*Math.cos(k*.52)).toFixed(1),(228+14*Math.sin(k*.52)).toFixed(1),1.4,'#f5b82e','opacity=".7"');return{s,pos:'t'}},
+picnic:(p,r,o,u)=>({s:`<defs><pattern id="${u}g" width="16" height="16" patternUnits="userSpaceOnUse">${R(0,0,16,16,'#ffffff')+R(0,0,8,16,p[2],'opacity=".5"')+R(0,0,16,8,p[2],'opacity=".5"')}</pattern></defs>`+P('M-10 196L190 176V290H-10Z',`url(#${u}g)`)+fruit.berry(56,214,1.8,-10,p[2],'#4f9a5b')+fruit.lemon(96,226,1.6,15,'#f7d63b','#4f9a5b')+fruit.orange(132,210,1.7,0,'#f5892e','#4f9a5b'),pos:'t'}),
+sea:p=>({s:C(140,58,18,p[3])+[0,1,2].map(i=>P(`M0 ${200+i*22}q22.5-12 45 0t45 0t45 0t45 0V280H0Z`,mix(p[2],p[1],i*.25))).join(''),pos:'c'}),
+mushroom:p=>{let s=R(0,262,W,18,mix(p[1],'#5f7f4a',.6));[[36,258,20],[88,264,30],[142,260,22]].forEach(([x,y,w])=>s+=R(x-w*.3,y-w*.9,w*.6,w*.9,p[3],'rx="3"')+P(`M${x-w} ${y-w*.8}A${w} ${w*.8} 0 0 1 ${x+w} ${y-w*.8}Z`,p[2])+C(x-w*.4,y-w*1.15,w*.12,p[3])+C(x+w*.32,y-w*1.3,w*.14,p[3])+C(x+w*.05,y-w*.96,w*.1,p[3]));return{s,pos:'t'}},
+jungle:p=>{const lf=(x,y,a,s,c)=>`<g transform="translate(${x} ${y}) rotate(${a}) scale(${s})">${E(0,0,18,34,c)+P('M0-34V34','none',`stroke="${p[0]}" stroke-width="1.2" opacity=".6"`)}</g>`;return{s:lf(10,20,40,1.3,p[2])+lf(44,-2,-20,1,mix(p[2],'#000000',.2))+lf(172,40,-40,1.2,p[2])+lf(10,262,-40,1.3,mix(p[2],'#000000',.2))+lf(170,252,30,1.4,p[2])+lf(136,286,0,1,p[3]),pos:'c',ey:'WILD ONE'}},
+snow:(p,r)=>{let s='';for(let i=0;i<50;i++)s+=C((r()*W).toFixed(1),(r()*230).toFixed(1),(r()*2+.6).toFixed(2),p[3]);return{s:s+E(40,292,110,60,p[2])+E(160,302,100,64,mix(p[2],p[3],.3)),pos:'c',ey:'WINTER ONE-DERLAND'}},
+planets:(p,r)=>{let s='';for(let i=0;i<30;i++)s+=C((r()*W).toFixed(1),(r()*160).toFixed(1),(r()*1+.3).toFixed(2),p[1],'opacity=".6"');s+=C(90,262,54,p[2],'opacity=".2"')+C(90,262,42,p[2]);[[80,2.1],[110,1.2],[140,1.9]].forEach(([rr,a],i)=>s+=E(90,262,rr,rr*.55,'none',`stroke="${p[1]}" stroke-width=".6" opacity=".4"`)+C((90+rr*Math.cos(a)).toFixed(1),(262-rr*.55*Math.sin(a)).toFixed(1),4+i*1.5,[p[3],'#e98b6b','#9fd8a0'][i]));return{s,pos:'t',ey:'TRIP AROUND THE SUN'}},
+cake:p=>({s:cake(p,90,250),pos:'t',ey:'SWEET ONE'}),
+bee:p=>{let s='';const rr=12,w=rr*1.732;for(let row=0;row<17;row++)for(let col=-1;col<10;col++){const cx=col*w+(row%2)*w/2,cy=row*rr*1.5;s+=`<polygon points="${starPts(cx,cy,3,rr,rr,Math.PI/6).split(' ').filter((_,i)=>true).join(' ')}" fill="none" stroke="${p[2]}" stroke-width="2"/>`}return{s,pos:'c',card:1,ey:'FIRST BEE-DAY'}},
+dino:p=>{let s=P('M-10 280V220Q90 150 190 220V280Z',p[2]);for(let i=0;i<8;i++){const t=.12+i*.11,x=(1-t)*(1-t)*-10+2*(1-t)*t*90+t*t*190,y=(1-t)*(1-t)*220+2*(1-t)*t*150+t*t*220;s+=`<polygon points="${(x-8).toFixed(1)},${(y+5).toFixed(1)} ${x.toFixed(1)},${(y-13).toFixed(1)} ${(x+8).toFixed(1)},${(y+5).toFixed(1)}" fill="${p[3]}"/>`}return{s,pos:'t',ey:'ONE-SAURUS'}},
+camp:(p,r)=>{let s='';for(let i=0;i<14;i++)s+=sparkle((r()*W).toFixed(0),(100+r()*50).toFixed(0),(.3+r()*.3).toFixed(2),p[2]);return{s:s+P('M-10 280L50 170L110 280Z',mix(p[3],'#000000',.15))+P('M60 280L130 150L200 280Z',p[3])+P('M62 280L96 208L130 280Z',p[2])+P('M96 208L88 280H104Z',p[1],'opacity=".45"')+R(0,272,W,8,mix(p[3],'#000000',.35)),pos:'t',ey:'ONE HAPPY CAMPER'}},
+sports:p=>({s:C(90,206,42,'#ffffff',`stroke="${p[1]}" stroke-width="1.5"`)+P('M62 176Q80 206 62 236M118 176Q100 206 118 236','none',`stroke="${p[2]}" stroke-width="1.6" stroke-dasharray="3 2"`)+R(0,262,W,18,mix(p[1],'#4a8f4a',.6)),pos:'t',ey:'ROOKIE OF THE YEAR'}),
+circus:p=>{let s='';for(let x=0;x<W;x+=20)s+=R(x,0,10,110,p[2])+R(x+10,0,10,110,'#ffffff');for(let x=5;x<W+10;x+=10)s+=C(x,110,5,(x-5)/10%2?'#ffffff':p[2]);return{s,pos:'b',ey:'STEP RIGHT UP'}},
+sail:p=>({s:P('M90 120V220','none',`stroke="${p[1]}" stroke-width="2"`)+P('M94 124L140 210H94Z','#ffffff',`stroke="${p[1]}" stroke-width="1.5"`)+P('M86 134L52 210H86Z',p[2])+P('M44 222H136L124 240H56Z',p[1])+[0,1].map(i=>P(`M0 ${248+i*12}q15-6 30 0t30 0t30 0t30 0t30 0t30 0`,'none',`stroke="${p[1]}" stroke-width="1.4" opacity="${.7-i*.3}"`)).join(''),pos:'t',ey:'ONE VOYAGE'}),
+castle:p=>{const tw=(x,w,h,c)=>R(x,280-h,w,h,c)+`<polygon points="${x-3},${280-h} ${x+w/2},${280-h-w*1.1} ${x+w+3},${280-h}" fill="${p[2]}"/>`;return{s:tw(20,22,90,p[3])+tw(138,22,90,p[3])+R(40,200,100,80,mix(p[3],'#ffffff',.3))+tw(70,40,118,p[3])+P('M80 280V252A10 10 0 0 1 100 252V280Z',p[1],'opacity=".5"')+sparkle(40,140,.9,p[2])+sparkle(150,150,.7,p[2]),pos:'t',ey:'ONCE UPON A TIME'}},
+idcard:p=>({html:`<div class="cx" style="top:14%;left:7%;right:7%;border-radius:2.5cqw;padding:4cqw;color:${p[1]};box-shadow:0 2cqw 5cqw #0002;background:linear-gradient(135deg,#ffffff 55%,${mix(p[2],'#ffffff',.82)})"><div style="font-size:5.4cqw;font-weight:600;letter-spacing:.3em;text-align:center">주민등록증</div><div style="display:flex;gap:4cqw;margin-top:3cqw;align-items:center"><div style="width:22cqw;aspect-ratio:3/4;background:${mix(p[2],'#ffffff',.6)};border-radius:1cqw;flex:none"></div><div style="display:grid;gap:1.4cqw;font-size:3.8cqw"><b style="font-size:7cqw">이 나</b><span>첫돌 기념 발급</span><span>소속 · 우리 가족</span></div></div><div style="font-size:3.4cqw;text-align:right;margin-top:3cqw;opacity:.7">우리집 구청장 (인)</div></div>`,pos:'b',sm:1}),
+badge:p=>({s:P('M70 0L84 64M110 0L96 64','none',`stroke="${p[2]}" stroke-width="7"`)+R(84,58,12,16,'#999999','rx="2"'),html:`<div class="cx" style="top:24%;left:16%;right:16%;background:#fff;border-radius:3cqw;box-shadow:0 2cqw 5cqw #0003;overflow:hidden;text-align:center;color:${p[1]}"><div style="background:${p[2]};color:#fff;font-size:3.6cqw;padding:2.4cqw;letter-spacing:.1em;font-weight:600">인생주식회사</div><div style="width:24cqw;aspect-ratio:1;border-radius:50%;background:${mix(p[2],'#ffffff',.75)};margin:4cqw auto 2cqw"></div><b style="font-size:8cqw;display:block">이나</b><div style="font-size:3.6cqw;opacity:.7;padding:1cqw 0 4cqw">신입사원 · 입사 1주년</div></div>`,pos:'b',sm:1,ey:'',ti:'첫돌 기념식'}),
+passport:p=>({s:T(90,40,'PASSPORT · 여권',p[2],8,`${MID} letter-spacing="2" font-family="Noto Serif KR"`)+C(90,100,32,'none',`stroke="${p[2]}" stroke-width="1.4"`)+C(90,100,24,'none',`stroke="${p[2]}" stroke-width=".7"`)+Array.from({length:12},(_,k)=>P(`M90 100L${(90+20*Math.cos(k*.5236)).toFixed(1)} ${(100+20*Math.sin(k*.5236)).toFixed(1)}`,'none',`stroke="${p[2]}" stroke-width=".7"`)).join('')+`<g transform="rotate(-14 140 160)">${E(140,160,24,15,'none',`stroke="${p[3]}" stroke-width="1.4"`)+T(140,163,'입국 · 첫돌',p[3],7,`${MID} font-family="IBM Plex Sans KR" font-weight="600"`)}</g>`,pos:'b',ey:'지구 여행 1년차'}),
+concert:p=>({html:`<div class="cx" style="top:6%;left:7%;right:7%;font-family:'Gasoek One',sans-serif;font-size:21cqw;line-height:.94;color:${p[1]}">INA<br><span style="color:${p[2]}">WORLD</span><br>TOUR</div><div class="cx" style="top:56%;left:7%;right:7%;font-family:'IBM Plex Sans KR',sans-serif;font-size:3.6cqw;line-height:1.8;color:${p[1]};border-top:.4cqw solid ${p[1]};padding-top:1.5cqw">탄생 ··· 산부인과<br>백일 ··· 우리 집<br>첫돌 ··· 앙코르 공연</div>`,pos:'b',sm:1,ey:'',ti:'첫돌 단독 공연'}),
+magazine:(p,r,o,u)=>({s:photoBg(p,u,mix(p[0],'#ffffff',.3),mix(p[0],'#000000',.08))+C(108,118,30,mix(p[0],'#000000',.15))+E(108,206,56,50,mix(p[0],'#000000',.12)),html:`<div class="cx" style="top:3%;left:0;right:0;text-align:center;font-family:'Noto Serif KR',serif;font-weight:700;font-size:27cqw;letter-spacing:-.04em;color:${p[2]};line-height:1">BABY</div><div class="cx" style="top:38%;left:6%;font-size:3.8cqw;color:${p[1]};line-height:1.4;width:40%">첫돌 특집<br><b style="font-size:5.4cqw">365일의 기록</b></div>`,pos:'bl',sm:1,ey:'COVER STORY'}),
+receipt:p=>{const rows=[['웃음','∞'],['밤잠','부족'],['기저귀','셀 수 없음'],['뽀뽀','매일'],['사랑','365일']];let cp='0 0,100% 0';for(let i=20;i>=0;i--)cp+=`,${i*5}% ${i%2?'100%':'calc(100% - 3cqw)'}`;return{html:`<div class="cx" style="top:8%;left:12%;right:12%;background:#fff;color:${p[1]};padding:6cqw 5cqw 9cqw;font-family:'IBM Plex Sans KR',monospace;font-size:3.8cqw;line-height:1.75;clip-path:polygon(${cp});box-shadow:0 2cqw 4cqw #0002"><div style="text-align:center;font-weight:600;font-size:5.2cqw">이나네 영수증</div><div style="text-align:center;opacity:.6">첫 1년 결산</div><div style="border-top:.5cqw dashed ${p[3]};margin:2cqw 0"></div>${rows.map(([a,b])=>`<div style="display:flex;justify-content:space-between"><span>${a}</span><span>${b}</span></div>`).join('')}<div style="border-top:.5cqw dashed ${p[3]};margin:2cqw 0"></div><div style="display:flex;justify-content:space-between;font-weight:600;font-size:4.8cqw"><span>합계</span><span>첫 생일</span></div><div style="text-align:center;margin-top:3cqw;font-size:3.4cqw">잔치에 꼭 와주세요</div></div>`,noText:1}},
+report:p=>{const rows=[['뒤집기','수'],['옹알이','수'],['이유식','우'],['걸음마','노력 중'],['웃음','수+']];return{html:`<div class="cx" style="inset:8% 8%;color:${p[1]};display:flex;flex-direction:column;gap:2.4cqw"><div style="text-align:center;font-size:3.4cqw;letter-spacing:.3em">생활통지표</div><b style="text-align:center;font-size:8.4cqw;font-weight:800">이나의 첫 1년</b><table style="width:100%;border-collapse:collapse;font-size:4cqw">${rows.map(([a,b])=>`<tr><td style="border:.3cqw solid ${p[1]};padding:1.6cqw 2.4cqw;background:${p[3]}">${a}</td><td style="border:.3cqw solid ${p[1]};padding:1.6cqw;text-align:center;color:${p[2]};font-weight:800">${b}</td></tr>`).join('')}</table><div style="font-size:3.6cqw;line-height:1.6">종합 의견: 1년 동안 무럭무럭 자라 첫 생일 잔치를 엽니다. 꼭 와 주세요.</div><div style="align-self:flex-end;width:15cqw;height:15cqw;border:.5cqw solid ${p[2]};border-radius:50%;color:${p[2]};display:grid;place-items:center;text-align:center;font-size:3cqw;line-height:1.1;transform:rotate(-12deg)">참 잘<br>했어요</div></div>`,noText:1}},
+news:(p,r,o,u)=>({s:photoBg(p,u,'#4a5a6e',p[0])+C(90,100,30,'#6b7a8e')+E(90,186,56,50,'#5d6c80'),html:`<div class="cx" style="top:5%;left:5%;display:flex;gap:1.6cqw;font-size:3.4cqw;font-family:'IBM Plex Sans KR',sans-serif;font-weight:600"><span style="background:${p[2]};color:#fff;padding:.6cqw 2cqw">LIVE</span><span style="color:#fff;opacity:.85">이나 방송</span></div><div class="cx" style="bottom:9%;left:0;right:0"><span style="display:inline-block;background:${p[2]};color:#fff;font-size:5cqw;padding:1cqw 3cqw;margin-left:4%">속보</span><div style="background:#fff;color:#111;font-size:7cqw;padding:2.4cqw 4%;line-height:1.25">이나, 첫돌 맞아<br>잔치 연다</div><div style="background:${p[3]};color:#111;font-size:3.6cqw;padding:1.4cqw 4%;font-family:'IBM Plex Sans KR',sans-serif">소중한 분들을 초대합니다 · 일시와 장소는 초대장에서</div></div>`,noText:1}),
+game:p=>{let s='';for(let x=0;x<W;x+=12)s+=R(x,256,12,12,x%24?p[2]:mix(p[2],'#000000',.25))+R(x,268,12,12,mix(p[2],'#000000',.45));s+=R(16,18,62,8,'none','stroke="#fff" stroke-width="1.5"')+R(18,20,46,4,p[3])+T(84,26,'HP',p[1],8,'font-family="Dongle"');['0110110','1111111','0111110','0011100','0001000'].forEach((row,y)=>[...row].forEach((v,x)=>{if(v==='1')s+=R(134+x*4,16+y*4,4,4,p[3])}));[[40,236],[64,236],[88,236]].forEach(([x,y])=>s+=R(x,y,8,8,'#f5c842'));return{s,pos:'c',ey:'LEVEL UP!',ti:'Lv.1 이나',sb:'첫돌 퀘스트에 초대합니다'}},
+chat:p=>{const b=(t,me)=>`<div style="align-self:${me?'flex-end':'flex-start'};max-width:78%;background:${me?p[2]:p[3]};padding:2.4cqw 3.4cqw;border-radius:3.4cqw;font-size:4.4cqw;line-height:1.4">${t}</div>`;return{html:`<div class="cx" style="inset:0;display:flex;flex-direction:column;gap:2.6cqw;padding:5cqw;color:${p[1]}"><div style="font-size:4cqw;font-weight:600;text-align:center;padding-bottom:2cqw">이나네 가족 (12)</div><span style="font-size:3.4cqw;opacity:.7">이나 엄마</span>${b('다들 이나 첫돌 잔치에 와주세요!')}${b('언제 어디서?',1)}${b('아래 초대장에 다 있어요. 사진도 많아요')}${b('무조건 갑니다',1)}<div style="margin-top:auto;background:${p[3]};border-radius:3cqw;padding:3cqw;font-size:4cqw;text-align:center;font-weight:600">이나의 첫 생일 초대장 열기</div></div>`,noText:1}},
+app:p=>({html:`<div class="cx" style="inset:0;padding:8cqw 7cqw;display:flex;flex-direction:column;gap:3cqw;color:${p[1]}"><div style="display:flex;gap:4cqw;align-items:center"><div style="width:20cqw;height:20cqw;border-radius:5cqw;background:linear-gradient(135deg,${p[2]},${mix(p[2],'#ff9fd0',.5)});display:grid;place-items:center;color:#fff;font-size:12cqw;font-weight:600;flex:none">1</div><div style="display:grid;gap:1cqw"><b style="font-size:6.4cqw">이나</b><span style="font-size:3.6cqw;opacity:.6">우리 가족 · 버전 1.0</span></div></div><div style="background:${p[2]};color:#fff;border-radius:10cqw;padding:2.4cqw;text-align:center;font-size:4.2cqw;font-weight:600">업데이트</div><b style="font-size:5cqw;margin-top:2cqw">새로운 기능</b><div style="font-size:4cqw;line-height:1.75;opacity:.85">· 걸음마 기능 베타 출시<br>· 옹알이 인식률 개선<br>· 밤잠 관련 버그 수정 중<br>· 첫 생일 잔치 초대 기능 추가</div></div>`,noText:1}),
+weather:p=>({s:C(124,70,40,p[2],'opacity=".25"')+C(124,70,26,p[2])+cloud(30,106,1.5,'#ffffff')+cloud(120,140,.8,'#ffffff'),pos:'b',sm:1,ey:'그날의 날씨 · 맑음',ti:'웃음 확률 100%',sb:'이나의 첫 생일에 초대합니다'}),
+boarding:p=>({html:`<div class="cx" style="top:12%;left:7%;right:7%;background:#fff;border-radius:3cqw;color:${p[1]};overflow:hidden;box-shadow:0 2cqw 5cqw #0002;font-family:'IBM Plex Sans KR',sans-serif"><div style="background:${p[2]};color:#fff;padding:2.6cqw 4cqw;font-size:3.6cqw;font-weight:600;letter-spacing:.15em">BOARDING PASS</div><div style="display:flex;justify-content:space-between;align-items:center;padding:4cqw"><div><div style="font-size:3cqw;opacity:.6">출발</div><b style="font-size:9cqw">BRN</b><div style="font-size:3.4cqw">탄생</div></div><svg viewBox="0 0 24 24" style="width:8cqw;fill:${p[2]};transform:rotate(90deg)"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg><div style="text-align:right"><div style="font-size:3cqw;opacity:.6">도착</div><b style="font-size:9cqw">ONE</b><div style="font-size:3.4cqw">첫돌</div></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;padding:0 4cqw 4cqw;font-size:3cqw"><div><span style="opacity:.6">승객</span><br><b style="font-size:4.4cqw">이나</b></div><div><span style="opacity:.6">게이트</span><br><b style="font-size:4.4cqw">1</b></div><div><span style="opacity:.6">좌석</span><br><b style="font-size:4.4cqw">1A</b></div></div><div style="border-top:.5cqw dashed #ccc;padding:3cqw 4cqw"><div style="height:8cqw;background:repeating-linear-gradient(90deg,${p[1]} 0 .5cqw,transparent .5cqw 1.2cqw,${p[1]} 1.2cqw 1.5cqw,transparent 1.5cqw 2.4cqw)"></div></div></div>`,pos:'b',sm:1}),
+timeline:p=>{let s=R(44,96,1.5,170,p[3]);['0개월','3개월','6개월','9개월','12개월'].forEach((t,i)=>{const y=106+i*38;s+=C(44.75,y,i===4?6:4,p[2])+T(36,y+3,t,p[1],7,'text-anchor="end" font-family="IBM Plex Sans KR"')+R(58,y-14,100,28,mix(p[3],p[0],.4),'rx="3"')});return{s,pos:'t',sm:1,ti:'이나의 1년',sb:'스크롤하며 함께 자라요'}},
+envelope:p=>({s:R(20,100,140,96,mix(p[3],'#000000',.12))+R(34,36,112,100,p[2],`stroke="${p[3]}" stroke-width=".8"`)+T(90,66,'INVITATION',p[1],7,`${MID} letter-spacing="2" font-family="IBM Plex Sans KR"`)+T(90,90,'이나',p[1],16,`${MID} font-family="Gowun Batang"`)+P('M20 100L90 150L160 100V196H20Z',p[3])+P('M20 196L90 146L160 196Z',mix(p[3],'#000000',.08)),pos:'b',sm:1,sb:'봉투를 눌러 열어 보세요'}),
+scratch:p=>({s:R(28,150,124,64,p[2],'rx="8"')+P('M42 176q20-12 40 4t36-6','none',`stroke="${p[0]}" stroke-width="13" stroke-linecap="round"`)+T(80,182,'○월 ○일 토요일',p[3],8,`${MID} font-family="Jua"`)+C(146,214,11,'#e9c46a')+C(146,214,7,'none','stroke="#c9a24a" stroke-width="1"'),pos:'t',ey:'LUCKY ONE',sb:'은박을 긁어 날짜를 확인하세요'}),
+candle:p=>({s:C(90,149,52,p[2],'opacity=".12"')+C(90,149,26,p[2],'opacity=".22"')+cake(p,90,250),pos:'t',sb:'화면을 눌러 촛불을 꺼 주세요'}),
+balloon:(p,r,o,u)=>({s:[[54,92,26,p[2]],[120,72,30,p[3]],[96,140,22,'#ffd36b']].map(([x,y,rr,c],i)=>P(`M${x} ${y+rr*1.15}q${i%2?-8:8} 30 0 60t0 60`,'none',`stroke="${p[1]}" stroke-width=".6" opacity=".5"`)+E(x,y,rr,rr*1.15,c)+E(x+rr*.18,y+rr*.2,rr*.8,rr*.9,mix(c,'#000000',.08),'opacity=".5"')+E(x-rr*.38,y-rr*.48,rr*.26,rr*.16,'#ffffff',`opacity=".8" transform="rotate(-35 ${x-rr*.38} ${y-rr*.48})"`)+`<polygon points="${x-3},${y+rr*1.15+4} ${x},${y+rr*1.15-1} ${x+3},${y+rr*1.15+4}" fill="${c}"/>`).join(''),pos:'b'}),
+parallax:p=>({s:C(130,86,22,p[2],'opacity=".85"')+[[160,0],[188,.25],[216,.5],[244,.75]].map(([y,t])=>P(`M0 ${y}Q45 ${y-30} 90 ${y}T180 ${y-6}V280H0Z`,mix(p[3],p[1],t))).join(''),pos:'t'}),
+flip:p=>({s:R(54,40,90,130,p[3],'rx="6" transform="rotate(8 99 105)"')+R(38,40,90,130,p[2],`rx="6" stroke="${p[3]}" transform="rotate(-4 83 105)"`)+R(46,50,74,90,mix(p[3],p[2],.4),'rx="3" transform="rotate(-4 83 95)"')+P('M150 150q14 20-6 36','none',`stroke="${p[1]}" stroke-width="1.4"`)+`<polygon points="140,182 146,190 150,180" fill="${p[1]}"/>`,pos:'b',sm:1,sb:'눌러서 뒤집어 보세요'}),
+polaroid:p=>({s:[[-10,22,46],[9,92,40],[-3,58,82]].map(([a,x,y])=>`<g transform="rotate(${a} ${x+32} ${y+40})">${R(x-2,y+3,68,80,'#000000','opacity=".12"')+R(x-4,y,68,80,p[2])+R(x+2,y+6,56,54,mix(p[3],p[1],.15))}</g>`).join(''),pos:'b'}),
+puzzle:p=>{let s='';for(let i=0;i<3;i++)for(let j=0;j<3;j++){if(i===2&&j===1)continue;s+=R(36+j*36,36+i*36,35,35,mix(p[3],p[0],(i+j)*.12))}return{s:s+R(72,108,35,35,'none',`stroke="${p[1]}" stroke-width="1" stroke-dasharray="3 2"`)+R(120,152,35,35,p[2],'transform="rotate(14 137 169)"')+C(137,150,6,p[2]),pos:'b'}},
+countdown:p=>({html:`<div class="cx" style="top:20%;left:6%;right:6%;display:flex;flex-direction:column;align-items:center;gap:4cqw;color:${p[1]}"><span style="font-size:3.8cqw;letter-spacing:.3em;font-family:'IBM Plex Sans KR',sans-serif">첫 생일까지</span><div style="display:flex;gap:2cqw">${['D','-','1','4'].map(c=>`<span style="width:16cqw;height:22cqw;display:grid;place-items:center;border-radius:2cqw;font-size:14cqw;color:${c==='D'?p[2]:p[1]};background:${c==='-'?'transparent':`linear-gradient(${p[3]} 49%,${p[0]} 49% 51%,${p[3]} 51%)`}">${c}</span>`).join('')}</div></div>`,pos:'b',sm:1}),
+story:(p,r,o,u)=>({s:photoBg(p,u,'#8a8a8a',p[0])+C(90,110,34,'#9a9a9a')+E(90,200,60,52,'#8f8f8f')+R(10,10,48,2,'#ffffff')+R(62,10,48,2,'#ffffff','opacity=".4"')+R(114,10,56,2,'#ffffff','opacity=".4"')+C(18,24,6,'#ffffff','opacity=".85"')+T(28,27,'ina_first',p[1],7,'font-family="IBM Plex Sans KR"'),pos:'bl',sb:'화면을 눌러 다음 장으로'}),
+foil:(p,r,o,u)=>({s:`<defs><linearGradient id="${u}f" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p[2]}"/><stop offset=".5" stop-color="${mix(p[3],'#ffffff',.4)}"/><stop offset="1" stop-color="${p[2]}"/></linearGradient></defs>`+R(12,12,156,256,'none',`stroke="url(#${u}f)" stroke-width="1.5"`)+R(18,18,144,244,'none',`stroke="url(#${u}f)" stroke-width=".6"`)+[[12,12],[168,12],[12,268],[168,268]].map(([x,y])=>`<polygon points="${x},${y-6} ${x+6},${y} ${x},${y+6} ${x-6},${y}" fill="url(#${u}f)"/>`).join(''),pos:'c',fx:'gold'}),
+letterpress:p=>({s:R(20,20,140,240,'none',`stroke="${p[3]}" stroke-width="1"`)+R(80,74,20,1,p[1])+R(80,206,20,1,p[1]),pos:'c',fx:'press'}),
+marble:(p,r)=>{let s='';for(let i=0;i<8;i++){const y=r()*H;s+=P(`M-10 ${y.toFixed(0)}C40 ${(y+(r()-.5)*80).toFixed(0)} 120 ${(y+(r()-.5)*80).toFixed(0)} 190 ${(y+(r()-.5)*60).toFixed(0)}`,'none',`stroke="${p[3]}" stroke-width="${(.4+r()*1.4).toFixed(2)}" opacity=".7"`)}return{s:s+P('M0 236L180 196','none',`stroke="${p[2]}" stroke-width="1.2"`),pos:'c'}},
+wax:(p,r)=>{let pts=[];for(let k=0;k<18;k++){const a=k/18*6.283,rr=22+r()*3;pts.push((90+rr*Math.cos(a)).toFixed(1)+','+(170+rr*Math.sin(a)).toFixed(1))}return{s:R(14,100,152,150,p[3])+P('M14 100L90 172L166 100Z',mix(p[3],'#000000',.08))+`<polygon points="${pts.join(' ')}" fill="${p[2]}"/>`+C(90,170,15,mix(p[2],'#000000',.15))+T(90,176,'I','#f3d9c4',16,`${MID} font-family="Noto Serif KR"`),pos:'t'}},
+deco:p=>{let s='';for(let k=0;k<=12;k++){const a=Math.PI*k/12;s+=P(`M90 280L${(90-160*Math.cos(a)).toFixed(1)} ${(280-160*Math.sin(a)).toFixed(1)}`,'none',`stroke="${p[2]}" stroke-width=".8"`)}s+=[44,70,96].map(rr=>P(`M${90-rr} 280A${rr} ${rr} 0 0 1 ${90+rr} 280`,'none',`stroke="${p[2]}" stroke-width="1.4"`)).join('')+P('M46 280A44 44 0 0 1 134 280Z',p[3]);return{s:s+R(14,14,152,252,'none',`stroke="${p[2]}" stroke-width="1"`),pos:'t',fx:'gold'}},
+pearl:(p,r,o,u)=>{let s=`<defs><radialGradient id="${u}q" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="${p[3]}"/></radialGradient></defs>`;for(let k=0;k<30;k++){const a=k/30*6.283;s+=C((90+68*Math.cos(a)).toFixed(1),(140+84*Math.sin(a)).toFixed(1),4.6,`url(#${u}q)`)}return{s,pos:'c',sm:1}},
+riso:(p,r)=>{let s=C(72,96,52,p[2],'style="mix-blend-mode:multiply"')+C(112,124,52,p[3],'style="mix-blend-mode:multiply"');for(let x=110;x<180;x+=6)for(let y=18;y<60;y+=6)s+=C(x,y,Math.max(.3,(x-110)/30),p[2],'opacity=".8"');return{s,pos:'b'}},
+zine:(p,r)=>{const fonts=['Black Han Sans','Nanum Myeongjo','Jua','Song Myung','Do Hyeon','Gaegu'];const bgs=['#ffffff',p[2],p[3],'#111111',mix(p[0],'#000000',.1)];const L=w=>[...w].map(ch=>{const b=bgs[Math.floor(r()*bgs.length)],c=(b==='#111111'||b===p[3])?'#fff':'#111';return`<span style="display:inline-block;padding:.4cqw 1.6cqw;margin:.6cqw;background:${b};color:${c};font-family:'${fonts[Math.floor(r()*fonts.length)]}';transform:rotate(${((r()-.5)*14).toFixed(1)}deg);font-size:${(11+r()*4).toFixed(1)}cqw;line-height:1.15">${ch}</span>`}).join('');return{s:R(20,36,40,10,'#f3e6b5','opacity=".9" transform="rotate(-12 40 41)"')+R(120,226,44,10,'#f3e6b5','opacity=".9" transform="rotate(8 142 231)"'),html:`<div class="cx" style="top:20%;left:3%;right:3%;text-align:center">${L('이나의')}<br>${L('첫생일')}</div>`,pos:'b',ey:'ZINE NO.1',ti:''}},
+cutout:p=>({s:`<g transform="translate(-4 -6) scale(1.2)">${P('M20 0C34 20 8 30 24 50C40 70 10 80 22 100C30 116 6 120 0 110V0Z',p[2])}</g><g transform="translate(184 286) rotate(180) scale(1.2)">${P('M20 0C34 20 8 30 24 50C40 70 10 80 22 100C30 116 6 120 0 110V0Z',p[3])}</g>`+[[150,44,1.6,p[3]],[34,236,1.8,p[2]],[140,214,1,'#f2c14e'],[60,40,.9,'#f2c14e']].map(([x,y,s,c])=>`<path transform="translate(${x} ${y}) scale(${s})" d="M0-20C6-8 14-14 20-4C10 0 18 10 8 16C4 6-6 14-8 18C-8 8-20 6-18-2C-8-2-10-14 0-20Z" fill="${c}"/>`).join(''),pos:'c'}),
+mondrian:p=>{const k=p[1];return{s:R(0,0,60,80,p[2])+R(130,180,50,100,p[3])+R(0,230,40,50,'#f2c14e')+R(150,0,30,50,'#f2c14e')+R(60,0,5,100,k)+R(150,0,5,100,k)+R(0,80,60,5,k)+R(150,50,30,5,k)+R(0,100,W,5,k)+R(0,180,W,5,k)+R(130,180,5,100,k)+R(40,180,5,100,k)+R(0,230,40,5,k),pos:'c'}},
+notes:p=>({html:`<div class="cx" style="inset:0;display:flex;flex-direction:column;color:${p[1]};background:repeating-linear-gradient(180deg,transparent 0 calc(11.25cqw - 1px),${p[3]} calc(11.25cqw - 1px) 11.25cqw);background-position:0 30cqw"><div style="display:flex;justify-content:space-between;padding:5cqw 5cqw 2cqw;color:${p[2]};font-family:'IBM Plex Sans KR',sans-serif;font-size:4cqw;background:${p[0]}"><span>‹ 메모</span><span>완료</span></div><div style="padding:1cqw 6cqw 3cqw;font-size:3cqw;opacity:.5;text-align:center;font-family:'IBM Plex Sans KR',sans-serif;background:${p[0]}">○월 ○일 오후 11:42</div><div style="padding:0 6cqw;font-size:9cqw;line-height:11.25cqw">이나 첫돌 잔치 함!!<br>언제: ○월 ○일 (토)<br>어디: ○○ 홀<br>와주면 진짜 기쁠 듯<br>밥 맛있대요</div></div>`,noText:1}),
+jelly:(p,r,o,u)=>({s:`<defs><linearGradient id="${u}k" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${mix(p[2],'#ffffff',.5)}"/><stop offset="1" stop-color="${p[2]}"/></linearGradient></defs>`+E(92,200,46,8,mix(p[2],'#000000',.2),'opacity=".25"')+T(95,196,'1',mix(p[2],'#000000',.18),190,`${MID} font-family="Bagel Fat One"`)+T(90,190,'1',`url(#${u}k)`,190,`${MID} font-family="Bagel Fat One"`)+E(78,84,6,18,'#ffffff','opacity=".75" transform="rotate(25 78 84)"')+C(104,160,3.5,'#ffffff','opacity=".8"'),pos:'b'}),
+brutal:p=>({s:R(0,18,W,24,p[1])+R(0,48,W,6,p[1])+R(128,66,52,52,p[2])+T(12,35,'INVITATION',p[0],12,'font-family="Black Han Sans" letter-spacing="1"'),pos:'bl',xl:1,ti:'이나<br>첫돌',ey:''}),
+bauhaus:p=>({s:C(56,70,40,p[2])+'<polygon points="100,24 170,140 100,140" fill="'+p[3]+'"/>'+P('M20 180A36 36 0 0 1 92 180Z','#f2c14e')+R(16,184,150,5,p[1])+R(118,150,6,34,p[1]),pos:'b'}),
+pixel:p=>{let s='';['01100110','11111111','11111111','01111110','00111100','00011000'].forEach((row,y)=>[...row].forEach((v,x)=>{if(v==='1')s+=R(54+x*9,64+y*9,9,9,p[2])}));[[20,30],[150,40],[26,170],[154,160]].forEach(([x,y])=>['0101','1111','0110'].forEach((row,yy)=>[...row].forEach((v,xx)=>{if(v==='1')s+=R(x+xx*3,y+yy*3,3,3,p[3])})));return{s:s+R(54,64,9,9,'#ffffff','opacity=".5"'),pos:'b'}}
+};
+
+const F={serif:"'Noto Serif KR',serif",batang:"'Gowun Batang',serif",dodum:"'Gowun Dodum',sans-serif",myeongjo:"'Nanum Myeongjo',serif",pen:"'Nanum Pen Script',cursive",gaegu:"'Gaegu',cursive",jua:"'Jua',sans-serif",dohyeon:"'Do Hyeon',sans-serif",blackhan:"'Black Han Sans',sans-serif",song:"'Song Myung',serif",hahmlet:"'Hahmlet',serif",gamja:"'Gamja Flower',cursive",yeon:"'Yeon Sung',cursive",dongle:"'Dongle',sans-serif",plex:"'IBM Plex Sans KR',sans-serif",orbit:"'Orbit',sans-serif",gasoek:"'Gasoek One',sans-serif",bagel:"'Bagel Fat One',sans-serif",dokdo:"'East Sea Dokdo',cursive",himelody:"'Hi Melody',cursive",grandi:"'Grandiflora One',serif",blackwhite:"'Black And White Picture',serif"};
+const FS={dongle:1.55,pen:1.35,dokdo:1.45,himelody:1.15,gaegu:1.05,blackwhite:1.05};
+const FW={serif:700,batang:700,myeongjo:800,hahmlet:600,plex:600,gaegu:700};
+
+const CATS=[
+ ['trad','한국 전통','돌상·한복·궁중 문양에서 가져온 결'],
+ ['mini','미니멀·모던','사진과 글자가 주인공인 단정한 그릇'],
+ ['pastel','파스텔·러블리','몽글몽글, 아기 첫 생일다운 다정함'],
+ ['illus','동화·일러스트','그림책 한 권처럼 이야기가 있는 화면'],
+ ['retro','레트로·빈티지','필름, 티켓, 간판처럼 시간이 묻은 물건들'],
+ ['nature','자연·보태니컬','꽃, 잎, 계절을 담은 차분한 무드'],
+ ['party','테마 파티','해외 1st birthday에서 사랑받는 말장난 테마'],
+ ['concept','위트 컨셉','받는 순간 웃음이 나는 서류·화면 패러디'],
+ ['inter','인터랙티브','종이로는 못 하는, 웹이라서 가능한 연출'],
+ ['lux','고급·포멀','어른 손님이 많은 자리에 어울리는 격식'],
+ ['art','아트·실험','2026 트렌드와 예술 사조에서 빌린 과감함']
+];
+
+const DATA=[
+['trad','색동 저고리','Saekdong Stripes','돌복 소매의 오방색 줄무늬를 띠로 두른 모던 한복 무드',['#fbf7f0','#2b2320','#d9433b','#3b67b0'],'serif','saekdong',1],
+['trad','한지와 낙관','Hanji & Seal','닥종이 결 위에 붉은 도장 하나, 여백이 주인공인 수묵 스타일',['#f3efe6','#1f1d1a','#b8322a','#8a8172'],'myeongjo','hanji',1],
+['trad','조각보','Bojagi Patchwork','할머니 손바느질 조각보처럼 색면을 이어 붙인 구성',['#f6f0e4','#2c2a26','#c9604a','#6f8f7a'],'batang','bojagi',1],
+['trad','단청 띠','Dancheong Band','궁궐 처마 단청 문양을 위아래 띠로 두른 화려한 전통',['#fbf6ec','#22312b','#c4362f','#2f7d63'],'song','dancheong',2],
+['trad','일월오봉도','Sun, Moon & Five Peaks','해·달·다섯 봉우리, 왕실 병풍을 첫 생일 버전으로',['#efe5cf','#1f2a2a','#c9372c','#2d6b5c'],'song','ilwol',2],
+['trad','달항아리','Moon Jar','백자 달항아리의 둥근 실루엣, 담백하고 단정한 한 장',['#e9e7e1','#3b3a36','#f7f5ef','#c7c2b6'],'batang','moonjar',1],
+['trad','돌잡이 원','Doljabi Ring','실·연필·돈·마이크, 돌잡이 물건이 둥글게 둘러싼 구성',['#fff8ef','#3a2a22','#e0884a','#5c8a6b'],'jua','doljabi',1],
+['trad','자개','Mother-of-Pearl','검은 옻칠 위 무지갯빛 자개, 저녁 연회처럼 고급스러운 전통',['#141519','#efe9df','#9fd8d0','#e6b7d6'],'serif','jagae',2],
+['trad','청사초롱','Cheongsa Lantern','붉고 푸른 초롱이 손님 길을 밝혀 주는 환영 인사',['#1d2a44','#fbf3df','#c9372c','#2f5aa8'],'song','lantern',2],
+['trad','문살 창호','Lattice Window','한옥 창호 문살 사이로 빛이 드는 구도',['#f5efe2','#3d2f24','#a0764e','#e8dcc4'],'myeongjo','munsal',1],
+['trad','수복 문양','Longevity Pattern','壽福 글자 문양을 은은하게 깐 돌상 전통',['#fbefe9','#5a1f1b','#c64a3c','#e9b9a8'],'song','subok',1],
+
+['mini','화이트 미니멀','White Minimal','텍스트만 정확하게, 잘 찍은 사진 한 장을 위한 그릇',['#fafaf8','#141414','#141414','#cfcfcf'],'plex','plain',1],
+['mini','커다란 1','Big One','화면을 꽉 채운 숫자 1 하나로 끝내는 포스터',['#f2f0ec','#1b1b1b','#ff5a36','#1b1b1b'],'gasoek','bignum',1],
+['mini','스위스 그리드','Swiss Grid','격자와 빨간 사각형, 정보가 칼같이 정렬된 타이포',['#f4f4f0','#111111','#e2231a','#bbbbbb'],'plex','grid',1],
+['mini','모노톤 사진','Monotone Photo','흑백 아기 사진 위 얇은 글씨, 화보 같은 첫 장',['#2a2a2a','#f5f5f5','#888888','#555555'],'hahmlet','photo',1],
+['mini','라인 아치','Line Arch','아치형 프레임 속 사진과 이름, 요즘 국내 초대장의 대표 구도',['#f1ece4','#3a3530','#b79f86','#e6ddd0'],'hahmlet','arch',1],
+['mini','컬러 블록','Color Block','화면을 반으로 가른 단색 면, 대담하지만 깔끔하게',['#f3efe8','#1d2b3a','#2f5d8c','#f3efe8'],'dohyeon','block',1],
+['mini','선물 태그','Gift Tag','선물에 매다는 종이 태그 모양 초대장',['#e7e2d8','#3b3029','#fbf8f2','#b5a48f'],'dodum','tag',1],
+['mini','에디토리얼','Editorial','잡지 칼럼처럼 큰 제목과 가는 괘선',['#f7f6f2','#1a1a1a','#1a1a1a','#a39e93'],'serif','editorial',1],
+['mini','전시 포스터','Exhibition Poster','‘이나 展: 365일’ 미술관 전시 안내처럼',['#ecebe7','#151515','#d9d6cf','#6b6b6b'],'plex','gallery',1],
+['mini','크라프트 종이','Kraft Paper','갈색 종이와 원형 스탬프, 생활 잡화점 무드',['#c8a882','#2f2418','#2f2418','#e9dcc6'],'dodum','kraft',1],
+['mini','원라인 드로잉','One-line Drawing','한 줄로 이어 그린 선 하나가 흐르는 담백함',['#f6f4ef','#2a2a2a','#2a2a2a','#d8d3c8'],'batang','monoline',1],
+
+['pastel','솜사탕 그라데이션','Cotton Candy','분홍·하늘·라일락이 번지는 몽글한 배경',['#fde7ef','#5a3b52','#ffc7dc','#c8dcff'],'dongle','gradient',1],
+['pastel','구름 위 아기','On a Cloud','하늘색 위 뭉게구름, 꿈꾸는 듯 포근하게',['#cfe6fb','#2f4a66','#ffffff','#eaf4ff'],'himelody','clouds',1],
+['pastel','리본 발레코어','Balletcore Ribbon','큰 새틴 리본 하나, 요즘 가장 많이 보이는 러블리',['#fbeef0','#6b3a46','#f2b8c6','#e48ea4'],'batang','ribbon',1],
+['pastel','베리 퍼스트','Berry First','딸기 송이를 흩뿌린 ‘Berry First Birthday’',['#fff3f0','#7a2230','#e2384f','#4f9a5b'],'jua','fruit',1,'berry'],
+['pastel','하트 팝','Heart Pop','동글동글 하트가 팡팡 터지는 사랑스러움',['#ffe4ea','#8a1f3d','#ff6f91','#ffb3c6'],'bagel','hearts',1],
+['pastel','폴카 도트','Polka Dots','‘Lots of Dots’ 알록달록 물방울',['#fffaf2','#33415c','#f7b7a3','#9ad0c2'],'jua','dots',1],
+['pastel','핑크 깅엄','Pink Gingham','체크 테이블보 위에 놓인 편지 카드',['#ffffff','#7a2e45','#f6c1cf','#ffffff'],'gaegu','gingham',1],
+['pastel','캔디 스트라이프','Candy Stripe','사탕 포장지 같은 세로 줄무늬',['#ffffff','#5b2a4a','#ffd1dc','#ffffff'],'dohyeon','stripes',1],
+['pastel','마카롱','Macaron Stack','파스텔 마카롱 탑이 쌓인 디저트 무드',['#fff6ee','#6a4a3c','#f7c6d0','#c6e6d8'],'dongle','macaron',1],
+['pastel','토끼 귀','Bunny Ears','‘Some Bunny is One’, 쫑긋한 토끼 귀',['#f5efff','#4b3a6b','#ffffff','#f7c3d6'],'himelody','bunny',1],
+['pastel','복숭아 꽃','Peach Blossom','연분홍 꽃잎이 흩날리는 봄',['#fff1ea','#7a3e2f','#f6b0a0','#c9604a'],'batang','flowers',1],
+
+['illus','그림책 표지','Picture Book','동화책 표지처럼 테두리 장식과 제목, 사진 갤러리와 잘 어울림',['#f7efdc','#3a2b1d','#c6553b','#5d7f5a'],'yeon','storybook',2],
+['illus','수채화 번짐','Watercolor Wash','물감이 번진 듯 부드러운 색 얼룩',['#fffdf8','#3d3a4a','#f2b5a7','#a9cbe4'],'batang','watercolor',1],
+['illus','크레용 낙서','Crayon Doodle','아이가 그린 듯 삐뚤빼뚤한 크레용 선',['#fffdf5','#2b2b2b','#ef5b3f','#3d8ee0'],'gaegu','scribble',1],
+['illus','종이 콜라주','Paper Collage','색종이를 오려 붙이고 마스킹테이프로 고정',['#efe8dc','#2b2723','#e98a5b','#7fb3a6'],'gamja','collage',1],
+['illus','펠트 바느질','Felt Stitch','박음질 점선과 펠트 질감',['#e8f1e8','#2f4a3a','#ffffff','#e9a3a3'],'gaegu','stitch',1],
+['illus','ABC 블록','Alphabet Blocks','원목 장난감 블록에 I·N·A',['#f8f4ec','#3a2e26','#e9a13b','#4f8fc0'],'jua','blocks',1],
+['illus','별밤 어린왕자','Little Prince Night','초승달과 별, 작은 왕자의 밤하늘',['#1d2650','#fbeec8','#ffd56b','#8ea3e8'],'himelody','stars',1],
+['illus','동물 퍼레이드','Animal Parade','동물 친구들이 줄지어 축하하러 온 장면',['#fff8e8','#3b3226','#e9b44c','#8cb07a'],'jua','parade',1],
+['illus','곰돌이','Teddy Bear','큰 곰돌이 얼굴이 반기는 포근함',['#f6ead9','#4a3426','#b9875a','#e8c9a6'],'dodum','bear',1],
+['illus','클레이 점토','Clay Blobs','말랑한 점토로 빚은 듯한 입체 덩어리',['#fdf0e2','#4a3a3a','#ff9f8a','#9fd3c7'],'bagel','clay',2],
+['illus','숲속 친구들','Woodland','나무와 버섯, 숲속 오두막 동화',['#eef2e4','#2e3a26','#5f7f4a','#c9643d'],'yeon','woodland',1],
+
+['retro','70s 그루비 선셋','Groovy Sunset','줄무늬 태양과 볼드한 레트로 서체',['#f8e7c9','#5a2a1a','#e96b2c','#f2b53a'],'blackhan','sunset',1],
+['retro','멤피스 80s','Memphis','삼각형·물결·점, 장난감 같은 80년대',['#ffffff','#1d1d1d','#ff5ca8','#2bc4c4'],'dohyeon','memphis',1],
+['retro','Y2K 크롬','Y2K Chrome','반짝이 스파클과 메탈 그라데이션',['#dfe7ff','#1c1f4a','#9aa8ff','#ff9fe5'],'orbit','y2k',2],
+['retro','필름 카메라','Film Roll','필름 스트립 칸칸이 성장 사진을 담는 구성',['#1e1b18','#f1e7d6','#d9a441','#3a332c'],'plex','film',1],
+['retro','영화 티켓','Movie Ticket','상영작 ‘이나의 첫 생일’ 입장권',['#2b1d3a','#fff4dc','#f2c14e','#e65f5c'],'dohyeon','ticket',1],
+['retro','레트로 TV','Retro TV','브라운관 속 ‘이나 방송국’ 특집 생방송',['#f0e1c8','#2a2522','#4c6b6b','#d9563a'],'dohyeon','tv',2],
+['retro','빈티지 우표','Vintage Stamp','톱니 우표 테두리와 소인 자국',['#f4ecd8','#2b3b5c','#c84b31','#2b3b5c'],'song','stamp',1],
+['retro','이나일보 호외','The Ina Daily','신문 호외 1면 머리기사로 알리는 첫돌',['#f3efe4','#1a1a1a','#1a1a1a','#8a857a'],'myeongjo','newspaper',1],
+['retro','다방 메뉴판','Dabang Menu','레트로 다방 메뉴판에 돌상 메뉴를 적은 패러디',['#3a2418','#f6e6c8','#e8b04a','#a5412b'],'blackwhite','menu',1],
+['retro','전구 간판','Marquee Sign','전구 테두리 간판에 ‘오늘 첫돌 영업’',['#1a1424','#fff3d6','#ffcf4a','#ff5b7a'],'blackhan','sign',2],
+['retro','LP 레코드','LP Record','‘Side A: 첫 1년’ 바이닐 앨범 재킷',['#e9e1d3','#1c1c1c','#1c1c1c','#e2583e'],'plex','lp',1],
+
+['nature','들꽃 프레스드','Pressed Flowers','말린 들꽃 표본처럼 가는 줄기와 꽃잎',['#f7f3ea','#3e3a2f','#c97b63','#8a9a6b'],'batang','pressed',1],
+['nature','유칼립투스','Eucalyptus','둥근 잎 가지 하나, 세이지 그린',['#eef1ea','#2e3b33','#8fa58f','#c7d3c3'],'hahmlet','leaves',1],
+['nature','가을 단풍','Autumn Leaves','가을 돌잔치라면 딱, 떨어지는 단풍잎',['#f8ecdc','#4a2a1a','#d9542b','#e8a33a'],'myeongjo','maple',1],
+['nature','해바라기','Sunflower','크게 피어난 해바라기 한 송이',['#fff7df','#3d2a12','#f5b82e','#6b4a22'],'jua','sunflower',1],
+['nature','데이지','Daisy Field','작고 하얀 데이지가 가득한 들판',['#dfeedb','#2f4a2f','#ffffff','#f5c842'],'gaegu','flowers',1],
+['nature','피크닉','Picnic Day','깅엄 돗자리와 과일, 야외 돌잔치 느낌',['#f6fbf2','#2f3e2a','#e75b4d','#ffffff'],'gaegu','picnic',1],
+['nature','바닷가','Seaside','파도 물결과 여름 햇살',['#eaf6f7','#1f4a5a','#5fb3c4','#f5d07a'],'himelody','sea',1],
+['nature','레몬','Little Lemon','상큼한 레몬이 굴러다니는 화면',['#fffbe6','#3d4a1f','#f7d63b','#6fa04a'],'jua','fruit',1,'lemon'],
+['nature','버섯 숲','Mushroom Forest','빨간 점박이 버섯이 쏙쏙',['#f3eedf','#3a2a1e','#d94a38','#f9f3e6'],'gamja','mushroom',1],
+['nature','올리브 가지','Olive Branch','평안을 비는 올리브 잎',['#f2f1e8','#2f3528','#7d8c5a','#b6bf95'],'serif','leaves',1,'olive'],
+
+['party','와일드 원','Wild One','해외 1위 돌 테마, 정글 잎사귀와 사파리',['#f3ead8','#2f3a24','#4f7a3a','#d9a441'],'blackhan','jungle',1],
+['party','원더랜드 겨울','ONE-derland','눈송이와 하얀 언덕, 겨울 돌잔치',['#e8f1f8','#2a4a6a','#ffffff','#a9cbe4'],'himelody','snow',1],
+['party','태양 한 바퀴','Trip Around the Sun','지구가 해를 한 바퀴 돈 1년, 우주 테마',['#14183a','#f7efd9','#f5b82e','#7fa7ff'],'orbit','planets',1],
+['party','스윗 원','Sweet One','케이크와 촛불 하나, 디저트 파티',['#fff3ec','#5a2e2a','#f7a6b5','#fbe2a4'],'bagel','cake',1],
+['party','퍼스트 비데이','First Bee-day','꿀벌과 벌집 육각형',['#fff6d6','#3a2a10','#f5c12e','#2a2a2a'],'jua','bee',1],
+['party','원사우루스','ONE-saurus','공룡 등뼈 지그재그, 공룡 파티',['#e9f3df','#2c3d22','#7fb35a','#f2c14e'],'dohyeon','dino',1],
+['party','해피 캠퍼','One Happy Camper','텐트와 산, 별 보는 캠핑',['#f1e9d8','#2a3a3a','#d9783a','#3f6b5f'],'blackhan','camp',1],
+['party','리틀 큐티','Little Cutie','귤처럼 상큼한 ‘Little Cutie’',['#fff4e4','#5a2e10','#f5892e','#5f9a4a'],'jua','fruit',1,'orange'],
+['party','올해의 루키','Rookie of the Year','공 하나와 스포츠 중계 무드',['#eef3f8','#1b2a4a','#d93a3a','#1b2a4a'],'blackhan','sports',1],
+['party','서커스','Big Top Circus','줄무늬 천막 아래 ‘어서 오세요’',['#fff6e6','#3a1a1a','#d93a3a','#f5c12e'],'blackhan','circus',2],
+['party','원 보야지','One Voyage','돛단배와 파도, 마린 스트라이프',['#f4f8fb','#1b2f55','#d93a3a','#1b2f55'],'dohyeon','sail',1],
+['party','원스 어폰 어 타임','Once Upon a Time','동화 속 성과 반짝임, 공주님 첫돌',['#f7eef8','#4a2a5a','#d9a441','#c8a8e0'],'grandi','castle',2],
+
+['concept','첫돌 주민등록증','Baby ID Card','신분증 양식에 이름과 ‘첫돌 기념 발급’',['#e9eef3','#1d2a3a','#3d6fb0','#ffffff'],'plex','idcard',2],
+['concept','인생주식회사 사원증','Employee Badge','입사 1주년 기념 사원증과 목걸이 줄',['#eef0f2','#1d1d1d','#2f6fde','#ffffff'],'plex','badge',2],
+['concept','여권','Passport','지구 여행 1년차, 여권 표지와 입국 도장',['#1f3a33','#e9d8a6','#e9d8a6','#e0614f'],'serif','passport',2],
+['concept','월드투어 포스터','World Tour','‘이나 첫돌 단독 공연’ 투어 포스터',['#121212','#f2f2f2','#ff4d2e','#f2f2f2'],'gasoek','concert',1],
+['concept','매거진 커버','Magazine Cover','표지 모델 이나와 커버 헤드라인',['#e9ddd2','#141414','#c9372c','#ffffff'],'serif','magazine',2],
+['concept','영수증','Receipt','웃음 ∞, 밤잠 부족, 1년 결산 영수증',['#e6e3dc','#222222','#ffffff','#999999'],'plex','receipt',1],
+['concept','생활통지표','Report Card','뒤집기 수, 옹알이 수, 걸음마 노력 중',['#f3f1e8','#22303a','#c9372c','#dfe6d8'],'myeongjo','report',1],
+['concept','뉴스 속보','Breaking News','‘속보: 이나, 첫돌 맞아 잔치 연다’ 뉴스 자막',['#0e1a2e','#ffffff','#d92a2a','#f5c12e'],'blackhan','news',1],
+['concept','레벨업 게임','Level Up','8비트 게임 화면, ‘Lv.1 달성!’',['#1a1a2e','#f2f2f2','#7cf29a','#ff5b7a'],'dongle','game',2],
+['concept','가족 단톡방','Chat Thread','엄마·아빠·친척 단톡방 대화로 초대',['#b9d0e6','#1d1d1d','#fff36b','#ffffff'],'dodum','chat',2],
+['concept','앱 업데이트 v1.0','Version 1.0','‘이나 v1.0 정식 출시’ 업데이트 노트',['#f5f6f8','#1d1d1f','#5b6cff','#ffffff'],'plex','app',1],
+['concept','날씨 예보','Weather Forecast','그날의 날씨: 맑음, 웃음 확률 100%',['#5aa0e6','#ffffff','#ffd84a','#ffffff'],'dodum','weather',1],
+['concept','탑승권','Boarding Pass','출발지 ‘탄생’, 도착지 ‘첫돌’ 항공권',['#f2f4f7','#1b2a4a','#2f6fde','#ffffff'],'plex','boarding',1],
+
+['inter','성장 타임라인','Growth Timeline','스크롤하면 0→12개월 사진이 차례로 나타나는 1년 이야기',['#f7f5f0','#2a2a2a','#e0884a','#d7d2c7'],'hahmlet','timeline',2],
+['inter','봉투 열기','Envelope Open','봉투를 누르면 카드가 쏙 올라오는 오프닝',['#e9dfd2','#3a2e26','#fbf8f2','#c9a98a'],'batang','envelope',2],
+['inter','스크래치 복권','Scratch Card','은박을 긁으면 날짜와 장소가 드러남',['#fff4e0','#3a2a1a','#c0c0c8','#e9583e'],'jua','scratch',3],
+['inter','촛불 불기','Blow the Candle','화면을 누르면 촛불이 꺼지고 축포가 터짐',['#2a1f3a','#fff1d6','#ffcf4a','#f7a6b5'],'bagel','candle',3],
+['inter','젤리 풍선','Jelly Balloons','말랑한 젤리 질감 풍선, 만지면 통통 튐',['#eef4ff','#2a2a5a','#ff8fb1','#8fb8ff'],'bagel','balloon',3],
+['inter','패럴랙스 언덕','Parallax Layers','스크롤을 따라 언덕 레이어가 따로 움직임',['#fdf0e0','#3a2a1a','#e9a36b','#9cbf8f'],'hahmlet','parallax',3],
+['inter','카드 뒤집기','Flip Card','앞면은 사진, 누르면 뒷면에 초대 문구',['#e8ecef','#1d2a3a','#ffffff','#9fb3c8'],'dodum','flip',2],
+['inter','폴라로이드 더미','Polaroid Pile','흩어진 폴라로이드를 한 장씩 넘기는 갤러리',['#d9cfc2','#2a2420','#ffffff','#a8968a'],'pen','polaroid',2],
+['inter','퍼즐 맞추기','Puzzle','조각을 맞추면 아기 사진이 완성',['#eef2f6','#24324a','#f2b35a','#7fb0d8'],'jua','puzzle',3],
+['inter','D-day 카운트다운','Countdown','플립 시계처럼 넘어가는 남은 날짜',['#1d1d1f','#f5f5f5','#ff6b4a','#2c2c2e'],'gasoek','countdown',2],
+['inter','스토리 넘기기','Story Swipe','SNS 스토리처럼 화면을 눌러 넘기는 구성',['#2a2a2a','#ffffff','#ffffff','#555555'],'plex','story',2],
+
+['lux','블랙 골드 포일','Black & Gold Foil','검정 바탕에 금박 이중 테두리',['#111111','#e9d39a','#c9a24a','#e9d39a'],'serif','foil',1],
+['lux','레터프레스','Letterpress','두꺼운 면지에 꾹 눌러 찍은 활판 인쇄',['#f4f2ed','#1f2d4a','#1f2d4a','#d9d4c8'],'myeongjo','letterpress',1],
+['lux','대리석','Marble','흰 대리석 결과 금색 라인',['#f4f3f1','#2a2a2a','#c9a24a','#cfcac2'],'hahmlet','marble',1],
+['lux','왁스 실링','Wax Seal','봉투를 봉한 붉은 밀랍 도장',['#efe6da','#3a2a22','#9e2a2a','#d9c8b3'],'serif','wax',1],
+['lux','아르데코','Art Deco','1920년대 부채꼴 방사선과 기하학',['#14302b','#e9d39a','#c9a24a','#1d4a40'],'grandi','deco',2],
+['lux','진주 목걸이','Pearl String','진주알이 둥글게 감싸는 우아함',['#f6f2f0','#4a3a3a','#ffffff','#e3d7d3'],'batang','pearl',1],
+['lux','버건디 벨벳','Burgundy Velvet','깊은 버건디와 금빛 얇은 액자',['#4a1424','#f2dcb3','#c9a24a','#f2dcb3'],'grandi','foil',1],
+
+['art','리소그래프','Risograph','핑크·블루 두 색이 겹쳐 찍힌 인쇄 질감',['#f7f1e8','#2a3a8a','#ff5ca8','#3a6fe0'],'dohyeon','riso',2],
+['art','랜섬 레터 진','Ransom Zine','잡지에서 글자를 오려 붙인 진(zine)',['#ecebe5','#111111','#f2d22e','#e2583e'],'bagel','zine',2],
+['art','마티스 컷아웃','Matisse Cutouts','색종이로 오린 해초 같은 유기적 형태',['#f6f0e4','#1d2a5a','#1d4fd0','#f2733a'],'grandi','cutout',1],
+['art','몬드리안','Mondrian','굵은 검정선과 빨강·파랑·노랑 면',['#fbfaf5','#111111','#e2231a','#1d4fd0'],'blackhan','mondrian',1],
+['art','메모앱 시크','Notes App Chic','휴대폰 메모장에 툭 적은 듯한 초대글, 2026 트렌드',['#fffdf5','#1d1d1d','#e8b62e','#ece6d2'],'pen','notes',1],
+['art','젤리 3D','Jelly 3D','반질반질한 젤리 숫자 1, 2026 촉감 트렌드',['#fff0f6','#5a2a4a','#ff7eb6','#ffc2dc'],'bagel','jelly',2],
+['art','브루탈리즘','Brutalist','거친 대형 타이포와 굵은 검정 막대',['#e9e9e4','#0d0d0d','#ff3b1f','#0d0d0d'],'blackhan','brutal',1],
+['art','바우하우스','Bauhaus','원·삼각형·반원, 원색 기하 구성',['#f2ece0','#1d1d1d','#e2231a','#1d4fd0'],'dohyeon','bauhaus',1],
+['art','픽셀 하트','Pixel Art','도트로 찍은 하트, 레트로 게임 감성',['#fdf6ff','#2a1a4a','#ff5b9a','#8a6bff'],'dongle','pixel',1],
+['art','나이브 손그림','Naive Drawing','일부러 서툴게 그린 2026 ‘나이브 디자인’',['#fffaf0','#2a2a2a','#f26b5b','#5bb0e0'],'dokdo','scribble',1]
+];
+
+const REC={1:'전통 돌잔치 분위기를 살리면서도 촌스럽지 않은 균형점이에요.',34:'이나만의 동화책 한 권처럼 만들 수 있고, 성장 사진 갤러리와 가장 잘 붙어요.',56:'어른 손님에게도 무난하고, 계절감 있는 돌잔치와 잘 어울려요.',78:'받자마자 웃게 되는 컨셉이라 단톡방에 공유할 때 반응이 좋아요.',91:'종이 초대장으로는 못 하는, 웹이라서 가능한 1년 성장 이야기예요.'};
+const LV={1:'가볍게 구현 · 정적 페이지로 금방 만들어요',2:'손이 조금 감 · 일러스트나 레이아웃 손질이 필요해요',3:'인터랙션 개발 · 터치 동작을 직접 만들어야 해요'};
+
+const items=DATA.map((a,i)=>({id:i+1,c:a[0],n:a[1],e:a[2],d:a[3],p:a[4].map(norm),f:a[5],m:a[6],lv:a[7],o:a[8]}));
+const byId=Object.fromEntries(items.map(it=>[it.id,it]));
+const catName=Object.fromEntries(CATS.map(c=>[c[0],c[1]]));
+
+function preview(it,uid){
+  const p=it.p,r=(M[it.m]||M.plain)(p,rng(it.id*977+13),it.o,uid)||{};
+  const ink=r.ink||p[1],font=F[it.f]||F.plex;
+  let tx='';
+  if(!r.noText){
+    const cls=['tx','pos-'+(r.pos||'c'),r.card?'card':'',r.sm?'sm':'',r.xl?'xl':'',r.nw?'nw':'',r.fx?'fx-'+r.fx:''].join(' ');
+    const ey=r.ey===undefined?'FIRST BIRTHDAY':r.ey,ti=r.ti===undefined?'이나의 첫 생일':r.ti,sb=r.sb===undefined?'소중한 분들을 초대합니다':r.sb;
+    tx=`<div class="${cls}" style="--ink:${ink};--cardbg:${p[0]}ee;--a1:${p[2]};--a2:${p[3]}">${ey?`<span class="ey">${ey}</span>`:''}${ti?`<b class="ti">${ti}</b>`:''}${sb?`<span class="sb">${sb}</span>`:''}</div>`;
+  }
+  return `<div class="pv" style="background:${r.bg||p[0]};font-family:${font};--fs:${FS[it.f]||1};--fw:${FW[it.f]||400}" aria-hidden="true"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice">${r.s||''}</svg>${r.html||''}${tx}</div>`;
+}
+
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let favs=new Set(store.get('ina-favs',[]));
+let state={cat:store.get('ina-cat','all'),q:''};
+const heartSvg='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+
+function buildGrid(){
+  const g=document.getElementById('groups');
+  g.innerHTML=CATS.map(([k,name,desc])=>`<section class="group" data-cat="${k}"><header><h2>${name}</h2><p>${desc}</p></header><div class="grid">${items.filter(it=>it.c===k).map(it=>`<article class="item" data-id="${it.id}"><button class="pvbtn" type="button" aria-label="${it.n} 크게 보기">${preview(it,'g'+it.id)}</button><div class="meta"><div class="row1"><span class="no">No.${it.id}</span>${REC[it.id]?'<span class="rec">추천</span>':''}<button class="fav" type="button" aria-pressed="${favs.has(it.id)}" aria-label="${it.n} 찜하기">${heartSvg}</button></div><h3>${it.n}</h3><p class="en">${it.e}</p><p class="d">${it.d}</p><div class="sw">${it.p.map(c=>`<i style="background:${c}"></i>`).join('')}</div></div></article>`).join('')}</div></section>`).join('');
+  document.getElementById('total').textContent=items.length;
+}
+function buildChips(){
+  const counts={all:items.length,rec:Object.keys(REC).length,fav:favs.size};
+  CATS.forEach(([k])=>counts[k]=items.filter(i=>i.c===k).length);
+  const list=[['all','전체'],['rec','추천 5'],['fav','찜한 것'],...CATS.map(c=>[c[0],c[1]])];
+  document.getElementById('chips').innerHTML=list.map(([k,l])=>`<button class="chip" type="button" data-cat="${k}" aria-pressed="${state.cat===k}">${l}${k==='rec'?'':`<span>${counts[k]}</span>`}</button>`).join('');
+}
+function applyFilter(){
+  const q=state.q.trim().toLowerCase();let shown=0;
+  document.querySelectorAll('.item').forEach(el=>{const it=byId[el.dataset.id];
+    let ok=state.cat==='all'||state.cat===it.c||(state.cat==='rec'&&REC[it.id])||(state.cat==='fav'&&favs.has(it.id));
+    if(ok&&q)ok=(it.n+' '+it.e+' '+it.d+' '+catName[it.c]).toLowerCase().includes(q);
+    el.hidden=!ok;if(ok)shown++;});
+  document.querySelectorAll('.group').forEach(s=>s.hidden=!s.querySelector('.item:not([hidden])'));
+  document.getElementById('empty').hidden=shown>0;
+}
+function renderTray(){
+  const t=document.getElementById('tray');t.hidden=favs.size===0;
+  document.getElementById('trayCount').textContent=`찜 ${favs.size}개`;
+  document.getElementById('trayList').innerHTML=[...favs].sort((a,b)=>a-b).map(id=>`<button type="button" data-open="${id}">No.${id} ${byId[id].n}</button>`).join('');
+  document.getElementById('copyArea').hidden=true;
+  const c=document.querySelector('.chip[data-cat="fav"] span');if(c)c.textContent=favs.size;
+}
+function toggleFav(id){favs.has(id)?favs.delete(id):favs.add(id);store.set('ina-favs',[...favs]);
+  document.querySelectorAll(`.item[data-id="${id}"] .fav`).forEach(b=>b.setAttribute('aria-pressed',favs.has(id)));
+  renderTray();syncModalFav();if(state.cat==='fav')applyFilter();}
+
+let cur=null,lastFocus=null;
+const visibleIds=()=>[...document.querySelectorAll('.item:not([hidden])')].map(e=>+e.dataset.id);
+function openModal(id){
+  const it=byId[id];if(!it)return;cur=id;if(document.getElementById('ov').hidden)lastFocus=document.activeElement;
+  document.getElementById('pBig').innerHTML=preview(it,'L'+id);
+  document.getElementById('pNo').textContent='No.'+id;
+  document.getElementById('pRec').hidden=!REC[id];
+  document.getElementById('pTitle').textContent=it.n;
+  document.getElementById('pEn').textContent=it.e;
+  document.getElementById('pDesc').textContent=it.d;
+  const w=document.getElementById('pWhy');w.hidden=!REC[id];w.textContent=REC[id]||'';
+  document.getElementById('pCat').textContent=catName[it.c];
+  document.getElementById('pHex').innerHTML=it.p.map(c=>`<span><i style="background:${c}"></i>${c.toUpperCase()}</span>`).join('');
+  document.getElementById('pFont').textContent=(F[it.f]||F.plex).split(',')[0].replace(/'/g,'');
+  document.getElementById('pLv').textContent=LV[it.lv];
+  syncModalFav();
+  document.getElementById('ov').hidden=false;document.getElementById('pClose').focus();
+}
+function syncModalFav(){if(cur==null)return;const b=document.getElementById('pFav');const on=favs.has(cur);b.textContent=on?'찜 해제':'찜하기';b.setAttribute('aria-pressed',on)}
+function closeModal(){document.getElementById('ov').hidden=true;cur=null;if(lastFocus)lastFocus.focus()}
+function step(d){const ids=visibleIds();if(!ids.length)return;let i=ids.indexOf(cur);i=(i+d+ids.length)%ids.length;openModal(ids[i])}
+
+buildGrid();buildChips();applyFilter();renderTray();
+
+document.getElementById('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;state.cat=b.dataset.cat;store.set('ina-cat',state.cat);document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));applyFilter()});
+document.getElementById('q').addEventListener('input',e=>{state.q=e.target.value;applyFilter()});
+document.getElementById('groups').addEventListener('click',e=>{const f=e.target.closest('.fav');const item=e.target.closest('.item');if(!item)return;const id=+item.dataset.id;if(f){toggleFav(id);return}if(e.target.closest('.pvbtn'))openModal(id)});
+document.getElementById('trayList').addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b)openModal(+b.dataset.open)});
+document.getElementById('clearBtn').addEventListener('click',()=>{const ids=[...favs];favs.clear();store.set('ina-favs',[]);ids.forEach(id=>document.querySelectorAll(`.item[data-id="${id}"] .fav`).forEach(b=>b.setAttribute('aria-pressed','false')));renderTray();syncModalFav();if(state.cat==='fav')applyFilter()});
+document.getElementById('copyBtn').addEventListener('click',()=>{
+  const text='이나 초대장 찜한 스타일\n'+[...favs].sort((a,b)=>a-b).map(id=>`No.${id} ${byId[id].n} (${byId[id].e}) · ${catName[byId[id].c]}`).join('\n');
+  const btn=document.getElementById('copyBtn'),ta=document.getElementById('copyArea');
+  const fallback=()=>{ta.value=text;ta.hidden=false;ta.focus();ta.select();btn.textContent='아래 글을 복사하세요'};
+  try{navigator.clipboard.writeText(text).then(()=>{btn.textContent='복사했어요';setTimeout(()=>btn.textContent='목록 복사',1800)},fallback)}catch(e){fallback()}
+});
+document.getElementById('pFav').addEventListener('click',()=>cur!=null&&toggleFav(cur));
+document.getElementById('pClose').addEventListener('click',closeModal);
+document.getElementById('pPrev').addEventListener('click',()=>step(-1));
+document.getElementById('pNext').addEventListener('click',()=>step(1));
+document.getElementById('ov').addEventListener('click',e=>{if(e.target.id==='ov')closeModal()});
+document.addEventListener('keydown',e=>{if(document.getElementById('ov').hidden)return;if(e.key==='Escape')closeModal();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
+</script>
