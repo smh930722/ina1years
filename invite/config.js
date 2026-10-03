@@ -64,5 +64,5 @@ window.INVITE = {
 
   // 카카오 JavaScript 키 (있으면 카카오톡 공유 버튼이 카톡 공유창으로 열린다)
   kakaoJsKey: '',
-  siteUrl: '', // 배포 후 실제 주소 (예: https://smh930722.github.io/ina-dol/)
+  siteUrl: 'https://smh930722.github.io/ina1years/invite/', // 배포 후 실제 주소 (예: https://smh930722.github.io/ina-dol/)
 };
