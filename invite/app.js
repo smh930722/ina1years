@@ -236,7 +236,7 @@
 
   // ---------- 꾸미기 패널 (테마·음악 고르기) ----------
   const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
-  if ((C.showThemePicker || C.showMusicPicker) && $('tuner')) {
+  if ((C.showThemePicker || C.showMusicPicker || C.showIntroPicker) && $('tuner')) {
     $('tuner').hidden = false;
     $('tunerToggle').onclick = () => {
       const p = $('tunerPanel'), open = p.hidden;
@@ -313,7 +313,47 @@
   const cover = $('cover'), introEl = $('intro');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const startCover = () => cover.classList.add('play');
-  if (introEl && !reduce) {
+  const introStyle = (() => {
+    const q = new URLSearchParams(location.search).get('intro');
+    if (q === 'arch' || q === 'vertical') return q;
+    const saved = store.get('ina-intro');
+    if (C.showIntroPicker && (saved === 'arch' || saved === 'vertical')) return saved;
+    return C.introStyle || 'vertical';
+  })();
+  if (C.showIntroPicker && $('introPick')) {
+    $('introRow').hidden = false;
+    $('introPick').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === introStyle));
+    $('introPick').onclick = e => {
+      const b = e.target.closest('button'); if (!b) return;
+      store.set('ina-intro', b.dataset.v);
+      location.href = location.pathname; // 처음부터 다시 보여 주기
+    };
+  }
+  const sparkle = (x, y, s, d) => `<svg class="spk" style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;animation-delay:${d}s" viewBox="-10 -10 20 20"><path d="M0-10Q1.2-1.2 10 0Q1.2 1.2 0 10Q-1.2 1.2-10 0Q-1.2-1.2 0-10Z"/></svg>`;
+  if (introEl && !reduce && introStyle === 'arch') {
+    // 아치 사진 첫 화면: 선 → happy birthday 글자 → 타원·별 → 아치 사진 → 이름·날짜·장소
+    const yy = String(y).slice(2), mm2 = String(m).padStart(2, '0'), dd2 = String(d).padStart(2, '0');
+    const letters = (word, start) => [...word].map((ch, i) => `<span style="animation-delay:${(start + i * 0.07).toFixed(2)}s">${esc(ch)}</span>`).join('');
+    $('introText').hidden = true;
+    const a = $('introArch');
+    a.hidden = false;
+    a.innerHTML = `
+      <div class="ia-top"><i></i><span>1st birthday</span><i></i></div>
+      <div class="ia-title">
+        <svg class="ia-ring" viewBox="0 0 300 120" preserveAspectRatio="none"><ellipse cx="150" cy="60" rx="146" ry="54" pathLength="100"/></svg>
+        <p class="ia-word">${letters('happy', 0.7)}<br>${letters('birthday', 1.05)}</p>
+        ${sparkle(88, 6, 22, 1.9)}${sparkle(95, 22, 13, 2.1)}${sparkle(4, 74, 18, 2.2)}
+      </div>
+      <div class="ia-photo" style="background-image:url('${src(C.introPhoto || C.photos.cover)}')"></div>
+      <p class="ia-name">${sparkle(0, 0, 10, 2.9).replace('class="spk"', 'class="spk inline"')}<span>${esc(C.baby.fullName)}</span>${sparkle(0, 0, 10, 3).replace('class="spk"', 'class="spk inline"')}</p>
+      <p class="ia-date">${yy}.${mm2}.${dd2}<b>|</b>${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}</p>
+      <p class="ia-place">${esc(C.venue.name)} ${esc(C.venue.hall)}</p>`;
+    introEl.classList.add('arch');
+    document.body.style.overflow = 'hidden';
+    const done = () => { if (introEl.classList.contains('out')) return; introEl.classList.add('out'); document.body.style.overflow = ''; startCover(); };
+    setTimeout(done, 6200);
+    introEl.addEventListener('click', done);
+  } else if (introEl && !reduce) {
     const cols = C.introColumns && C.introColumns.length ? C.introColumns : [`${babyName}의`, '첫번째생일'];
     let n = 0, before = 0;
     $('introText').innerHTML = cols.map(col => {
