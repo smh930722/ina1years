@@ -112,18 +112,6 @@
     <button class="btn" type="button" data-open="msgModal">메시지 남기기</button>
   </section>
 
-  <!-- 참석 여부 -->
-  <section class="sec rsvp reveal">
-    <h2 class="eyebrow">RSVP</h2>
-    <p class="rsvp-title">참석 의사</p>
-    <p class="hint">식사와 자리를 준비할 수 있게 미리 알려 주세요</p>
-    <div class="rsvp-card">
-      <p id="rsvpWho"></p>
-      <p id="rsvpWhen"></p>
-      <p id="rsvpWhere"></p>
-    </div>
-    <button class="btn" type="button" data-open="rsvpModal">참석 의사 전달하기</button>
-  </section>
 
   <!-- 마무리 -->
   <section class="sec closing reveal">
@@ -168,28 +156,6 @@
   </form>
 </div>
 
-<div class="modal" id="rsvpModal" hidden>
-  <form class="sheet" id="rsvpForm" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle">
-    <h3 id="rsvpTitle">참석 의사 전달하기</h3>
-    <fieldset class="seg">
-      <legend>참석 여부</legend>
-      <label><input type="radio" name="attend" value="참석" checked> 참석할게요</label>
-      <label><input type="radio" name="attend" value="불참"> 어려워요</label>
-    </fieldset>
-    <label for="rsvpName">이름</label>
-    <input id="rsvpName" name="name" maxlength="20" required autocomplete="name">
-    <label for="rsvpCount">함께 오는 인원 (본인 포함)</label>
-    <input id="rsvpCount" name="count" type="number" min="1" max="20" value="1" inputmode="numeric">
-    <label for="rsvpMemo">전하실 말 (선택)</label>
-    <input id="rsvpMemo" name="memo" maxlength="100">
-    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <p class="form-note" id="rsvpNote" role="status"></p>
-    <div class="sheet-btns">
-      <button class="btn ghost" type="button" data-close>취소</button>
-      <button class="btn" type="submit">전달하기</button>
-    </div>
-  </form>
-</div>
 
 <div class="lightbox" id="lightbox" hidden>
   <button type="button" class="lb-close" data-close aria-label="닫기">×</button>

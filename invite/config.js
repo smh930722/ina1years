@@ -46,7 +46,7 @@ window.INVITE = {
   theme: 'lilac',
   showThemePicker: true, // 색을 다 고르면 false로 바꿔 버튼을 숨긴다
 
-  // 방명록·참석 여부 저장용 Google Apps Script 웹앱 주소 (apps-script/README.md 참고)
+  // 방명록 저장용 Google Apps Script 웹앱 주소 (apps-script/README.md 참고)
   apiUrl: '',
 
   // 카카오 JavaScript 키 (있으면 카카오톡 공유 버튼이 카톡 공유창으로 열린다)

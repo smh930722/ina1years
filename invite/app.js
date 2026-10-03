@@ -33,9 +33,6 @@
   $('famMom').textContent = C.parents.mom.name;
   $('venueName').textContent = `${C.venue.name} ${C.venue.hall}`;
   $('venueAddr').textContent = C.venue.address;
-  $('rsvpWho').textContent = `아빠 ${C.parents.dad.name} · 엄마 ${C.parents.mom.name}`;
-  $('rsvpWhen').textContent = `${dateKo} ${timeKo}`;
-  $('rsvpWhere').textContent = `${C.venue.name} ${C.venue.hall}`;
   $('closing').textContent = C.closing;
   $('yearHint').textContent = `${babyName}가 자라 온 1년`;
 
@@ -142,7 +139,7 @@
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
 
-  // ---------- 방명록·참석 (Apps Script) ----------
+  // ---------- 방명록 (Apps Script) ----------
   const api = async (action, data) => {
     if (!C.apiUrl) throw new Error('noapi');
     if (data) {
@@ -183,7 +180,6 @@
     });
   };
   submit('msgForm', 'msgNote', 'message', '축하 메시지를 남겼어요', loadMsgs);
-  submit('rsvpForm', 'rsvpNote', 'rsvp', '참석 의사를 전달했어요');
 
   // ---------- 공유 ----------
   $('shareBtn').onclick = async () => {

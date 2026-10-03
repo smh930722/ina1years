@@ -138,11 +138,6 @@ button { font: inherit; color: inherit; }
 .guestbook .gb-empty { text-align: center; color: var(--muted); background: none; border: 1px dashed var(--line); }
 .gb-more { margin: -10px 0 20px; }
 
-/* 참석 */
-.rsvp-title { margin: 0; font-size: 18px; }
-.rsvp-card { margin: 0 auto 24px; padding: 22px; max-width: 300px; border-radius: 16px; background: var(--soft); font-size: 14px; }
-.rsvp-card p { margin: 0; }
-.rsvp-card p:first-child { margin-bottom: 8px; color: var(--accent-deep); }
 
 /* 마무리 */
 .closing { padding-top: 0; padding-left: 0; padding-right: 0; }
@@ -176,12 +171,6 @@ button { font: inherit; color: inherit; }
 .sheet input, .sheet textarea { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--ink); }
 .sheet textarea { resize: vertical; }
 .sheet-btns { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-top: 8px; }
-.seg { border: 0; margin: 0 0 6px; padding: 0; min-width: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.seg label { min-width: 0; }
-.seg legend { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
-.seg label { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 46px; border-radius: 12px; border: 1px solid var(--line); color: var(--ink); font-size: 15px; cursor: pointer; }
-.seg label:has(input:checked) { border-color: var(--accent); background: var(--soft); }
-.seg input { accent-color: var(--accent-deep); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
 .form-note { min-height: 1.2em; margin: 4px 0 0; font-size: 13px; color: var(--accent-deep); }
 .contact-list { display: grid; gap: 12px; margin-bottom: 8px; }
