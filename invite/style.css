@@ -116,8 +116,13 @@ button { font: inherit; color: inherit; }
 
 /* 가족 */
 .family { background: var(--soft); }
-.family-row { display: flex; justify-content: center; gap: 14px; margin-bottom: 28px; }
-.who { flex: 1; max-width: 104px; padding: 18px 6px; border-radius: 16px; background: var(--card); }
+.family-row { display: flex; justify-content: center; align-items: flex-end; gap: 12px; margin-bottom: 28px; }
+.who { flex: 1; max-width: 108px; padding: 16px 6px 18px; border-radius: 18px; background: var(--card); display: flex; flex-direction: column; align-items: center; }
+.avatar { width: 64px; height: 64px; margin-bottom: 10px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--soft); }
+.avatar.ph:not(.has-img)::after { font-size: 11px; letter-spacing: 0; }
+.who.baby { max-width: 120px; padding-top: 20px; }
+.who.baby .avatar { width: 84px; height: 84px; box-shadow: 0 0 0 3px var(--card), 0 0 0 6px var(--accent); }
+.who.baby b { color: var(--accent-deep); }
 .who .role { display: block; color: var(--muted); font-size: 12px; }
 .who b { font-weight: 400; font-size: 16px; }
 

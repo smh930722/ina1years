@@ -89,6 +89,9 @@
     }
   }
   setPhoto($('midPhoto'), C.photos.middle);
+  setPhoto($('avBaby'), C.baby.photo);
+  setPhoto($('avDad'), C.parents.dad.photo);
+  setPhoto($('avMom'), C.parents.mom.photo);
   setPhoto($('closingPhoto'), C.photos.closing || C.photos.cover);
 
   const gal = C.photos.gallery.length ? C.photos.gallery : Array(6).fill('');

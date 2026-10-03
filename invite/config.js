@@ -1,9 +1,10 @@
 // 초대장 내용은 전부 여기서 고친다. 디자인 코드는 건드릴 필요 없다.
 window.INVITE = {
-  baby: { name: '이나', fullName: '신이나' },
+  // photo: 가족 소개 칸의 동그란 프로필 사진 (photos/ 폴더)
+  baby: { name: '이나', fullName: '신이나', photo: 'profile_ina.jpg' },
   parents: {
-    dad: { name: '신민호', phone: '010-8992-1067' },
-    mom: { name: '박주영', phone: '010-7195-1865' },
+    dad: { name: '신민호', phone: '010-8992-1067', photo: 'profile_dad.jpg' },
+    mom: { name: '박주영', phone: '010-7195-1865', photo: 'profile_mom.jpg' },
   },
 
   // 날짜를 바꾸면 요일·달력·카운트다운이 자동으로 따라 바뀐다.
