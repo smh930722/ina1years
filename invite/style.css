@@ -50,8 +50,13 @@ button { font: inherit; color: inherit; }
 .cover.play .scroll-hint { animation: rise .8s ease forwards 3.2s; }
 .scroll-hint span { position: absolute; left: 50%; top: 6px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: #fff; animation: wheel 1.6s ease-in-out infinite; }
 .intro { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; background: var(--bg); transition: opacity .9s ease, visibility .9s; }
-.intro p { margin: 0; padding: 0 20px; text-align: center; font-family: var(--title); font-weight: 700; font-size: clamp(30px, 8.8vw, 44px); line-height: 1.3; white-space: nowrap; color: var(--accent-deep); letter-spacing: .02em; }
-.intro p span { display: inline-block; opacity: 0; transform: translateY(10px); animation: letter .5s ease forwards; }
+.intro-cols { --ch: clamp(52px, min(8.2vh, 19vw), 84px); display: flex; flex-direction: row-reverse; gap: calc(var(--ch) * .25); font-family: var(--title); font-weight: 700; font-size: var(--ch); line-height: 1.12; color: var(--accent-deep); }
+.intro-col { display: flex; flex-direction: column; align-items: center; margin-top: calc(var(--offset) * 1.12em); }
+.intro-date { align-self: flex-end; writing-mode: vertical-rl; text-orientation: upright; font-family: var(--body); font-weight: 400; font-size: calc(var(--ch) * .34); letter-spacing: .18em; color: var(--ink); opacity: 0; animation: letter .8s ease forwards; display: flex; align-items: center; gap: .2em; margin-left: calc(var(--ch) * .1); }
+.intro-date .seal { margin-top: .5em; }
+.intro-date .num { text-combine-upright: all; -webkit-text-combine: horizontal; letter-spacing: 0; }
+.intro-date .seal { writing-mode: horizontal-tb; display: grid; place-items: center; width: 2.2em; height: 2.2em; border-radius: 4px; background: #c8413a; color: #fff6ef; font-family: var(--title); font-weight: 700; font-size: .9em; letter-spacing: 0; line-height: 1; transform: rotate(-4deg); box-shadow: inset 0 0 0 2px rgba(255,255,255,.35); }
+.intro-col span { display: block; opacity: 0; transform: translateY(-10px); animation: letter .55s ease forwards; }
 .intro.out { opacity: 0; visibility: hidden; }
 .cover-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.28) 0%, transparent 32%, transparent 62%, rgba(0,0,0,.35) 100%); pointer-events: none; }
 .cover-title {

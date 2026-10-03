@@ -295,11 +295,22 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const startCover = () => cover.classList.add('play');
   if (introEl && !reduce) {
-    const word = C.introText || `${babyName}'s First Birthday`;
-    $('introText').innerHTML = [...word].map((ch, i) => ch === ' ' ? ' ' : `<span style="animation-delay:${(0.15 + i * 0.11).toFixed(2)}s">${esc(ch)}</span>`).join('');
+    const cols = C.introColumns && C.introColumns.length ? C.introColumns : [`${babyName}의`, '첫번째생일'];
+    let n = 0, before = 0;
+    $('introText').innerHTML = cols.map(col => {
+      const chars = [...col.replace(/\s/g, '')];
+      const html = `<div class="intro-col" style="--offset:${before}">${chars.map(ch => `<span style="animation-delay:${(0.2 + n++ * 0.16).toFixed(2)}s">${esc(ch)}</span>`).join('')}</div>`;
+      before += chars.length;
+      return html;
+    }).join('');
+    // 맨 왼쪽 줄: 날짜를 작게, 숫자는 세로줄 안에서 가로로 붙여 쓰고 끝에 이름 도장
+    const dateText = `${m}월 ${d}일 ${dowKo[dow]}요일`;
+    const dateHtml = dateText.replace(/\d+/g, x => `<span class="num">${x}</span>`);
+    $('introText').insertAdjacentHTML('beforeend', `<div class="intro-date" style="animation-delay:${(0.3 + n * 0.16).toFixed(2)}s">${dateHtml}<span class="seal">${esc(babyName)}</span></div>`);
+    const word = cols.join('') + '    ';
     document.body.style.overflow = 'hidden';
     const done = () => { if (introEl.classList.contains('out')) return; introEl.classList.add('out'); document.body.style.overflow = ''; startCover(); };
-    setTimeout(done, 400 + word.length * 110 + 1000);
+    setTimeout(done, 400 + word.length * 160 + 1100);
     introEl.addEventListener('click', done);
   } else {
     if (introEl) introEl.hidden = true;
