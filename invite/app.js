@@ -413,20 +413,31 @@
     let W = 0, H = 0, dpr = 1;
     const size = () => { dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0); };
     size(); addEventListener('resize', size);
-    const make = (fromBottom) => ({ x: Math.random() * W, y: fromBottom ? H + 20 : Math.random() * H, r: 5 + Math.random() * 16, v: 0.25 + Math.random() * 0.6, sway: Math.random() * Math.PI * 2, a: 0.35 + Math.random() * 0.4 });
-    const bubbles = Array.from({ length: 16 }, () => make(false));
+    // 작고 귀여운 파스텔 방울: 반짝이는 하이라이트, 살랑살랑 흔들리며 몽글몽글 커졌다 작아졌다
+    const TINTS = ['255,182,206', '255,226,140', '170,230,210', '170,205,245', '214,190,240', '255,255,255'];
+    const make = (fromBottom) => ({
+      x: Math.random() * W, y: fromBottom ? H + 12 : Math.random() * H,
+      r: 2.5 + Math.random() * 4.5, v: 0.3 + Math.random() * 0.55,
+      sway: Math.random() * Math.PI * 2, swayW: 6 + Math.random() * 10,
+      pulse: Math.random() * Math.PI * 2, tint: TINTS[Math.floor(Math.random() * TINTS.length)],
+      a: 0.55 + Math.random() * 0.35,
+    });
+    const bubbles = Array.from({ length: 34 }, () => make(false));
     let visible = true;
     new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(cover);
     const draw = () => {
       if (visible) {
         g.clearRect(0, 0, W, H);
         for (const b of bubbles) {
-          b.y -= b.v; b.sway += 0.015; const x = b.x + Math.sin(b.sway) * 10;
-          if (b.y < -30) Object.assign(b, make(true));
-          const grd = g.createRadialGradient(x - b.r * 0.35, b.y - b.r * 0.35, b.r * 0.1, x, b.y, b.r);
-          grd.addColorStop(0, `rgba(255,255,255,${b.a})`); grd.addColorStop(0.7, `rgba(255,255,255,${b.a * 0.15})`); grd.addColorStop(1, `rgba(255,255,255,${b.a * 0.6})`);
-          g.beginPath(); g.arc(x, b.y, b.r, 0, Math.PI * 2); g.fillStyle = grd; g.fill();
-          g.lineWidth = 1; g.strokeStyle = `rgba(255,255,255,${b.a * 0.8})`; g.stroke();
+          b.y -= b.v; b.sway += 0.02; b.pulse += 0.06;
+          if (b.y < -14) Object.assign(b, make(true));
+          const x = b.x + Math.sin(b.sway) * b.swayW;
+          const r = b.r * (1 + Math.sin(b.pulse) * 0.12);
+          g.beginPath(); g.arc(x, b.y, r, 0, Math.PI * 2);
+          g.fillStyle = `rgba(${b.tint},${b.a * 0.55})`; g.fill();
+          g.lineWidth = 1; g.strokeStyle = `rgba(255,255,255,${b.a})`; g.stroke();
+          g.beginPath(); g.arc(x - r * 0.35, b.y - r * 0.38, Math.max(0.8, r * 0.3), 0, Math.PI * 2);
+          g.fillStyle = `rgba(255,255,255,${Math.min(1, b.a + 0.2)})`; g.fill();
         }
       }
       requestAnimationFrame(draw);
