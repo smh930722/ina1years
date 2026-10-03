@@ -99,7 +99,7 @@ window.INVITE = {
   ],
 
   // 테마: lilac / peach / mint / sky / butter
-  theme: 'lilac',
+  theme: 'butter',
   showThemePicker: true, // 색을 다 고르면 false로 바꿔 버튼을 숨긴다
 
   // 방명록 저장용 Google Apps Script 웹앱 주소 (apps-script/README.md 참고)
