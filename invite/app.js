@@ -215,48 +215,31 @@
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: 0.15 }) : null;
   document.querySelectorAll('.reveal').forEach(el => (io ? io.observe(el) : el.classList.add('in')));
 
-  // ---------- 배경음악: 반짝반짝 작은 별(공공 저작물)을 오르골 소리로 직접 연주 ----------
-  const btn = $('musicBtn');
-  let ctx = null, timer = null, playing = false;
-  const N = { C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392, A4: 440, C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880, C6: 1046.5 };
-  const melody = 'C5 C5 G5 G5 A5 A5 G5 - F5 F5 E5 E5 D5 D5 C5 - G5 G5 F5 F5 E5 E5 D5 - G5 G5 F5 F5 E5 E5 D5 - C5 C5 G5 G5 A5 A5 G5 - F5 F5 E5 E5 D5 D5 C5 -'.split(' ');
-  const bass = ['C4', 'C4', 'F4', 'C4', 'F4', 'C4', 'G4', 'C4', 'C4', 'G4', 'C4', 'G4', 'C4', 'G4', 'C4', 'C4', 'F4', 'C4', 'G4', 'C4', 'C4', 'C4', 'F4', 'C4'];
-  const ding = (f, t, vol, len) => {
-    [1, 2.01, 3.98].forEach((mul, k) => {
-      const o = ctx.createOscillator(), g = ctx.createGain();
-      o.type = 'sine'; o.frequency.value = f * mul;
-      g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(vol / (k * 2.2 + 1), t + 0.008);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + len / (k + 1));
-      o.connect(g).connect(ctx.master); o.start(t); o.stop(t + len);
-    });
-  };
-  const beat = 0.42;
-  const loop = () => {
-    const t0 = ctx.currentTime + 0.05;
-    melody.forEach((n, i) => { if (n !== '-') ding(N[n], t0 + i * beat, 0.16, 2.2); });
-    bass.forEach((n, i) => ding(N[n], t0 + i * beat * 2, 0.06, 2.8));
-    timer = setTimeout(loop, melody.length * beat * 1000 + 1200);
-  };
-  const setBtn = on => { btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기'); };
-  btn.onclick = () => {
-    if (!ctx) {
-      ctx = new (window.AudioContext || window.webkitAudioContext)();
-      ctx.master = ctx.createGain(); ctx.master.gain.value = 0.7;
-      const rv = ctx.createDelay(); rv.delayTime.value = 0.18;
-      const fb = ctx.createGain(); fb.gain.value = 0.25;
-      ctx.master.connect(ctx.destination); ctx.master.connect(rv); rv.connect(fb).connect(rv); rv.connect(ctx.destination);
-    }
-    playing = !playing;
-    if (playing) { ctx.resume(); ctx.master.gain.setTargetAtTime(0.7, ctx.currentTime, 0.1); loop(); }
-    else {
-      // 예약된 음까지 깨끗이 지우려고 컨텍스트를 닫고 다음 재생 때 새로 만든다
-      clearTimeout(timer); const old = ctx; ctx = null;
-      old.master.gain.setTargetAtTime(0, old.currentTime, 0.12); setTimeout(() => old.close(), 500);
-    }
-    setBtn(playing);
-  };
-  const toast = $('musicToast');
-  setTimeout(() => toast.classList.add('show'), 600);
-  setTimeout(() => toast.classList.remove('show'), 3600);
+  // ---------- 배경음악 ----------
+  // 휴대폰 브라우저는 소리 있는 자동재생을 막는다. 그래서 바로 재생을 시도하고,
+  // 막히면 화면을 처음 만지는 순간(탭·스크롤 시작) 재생한다. 끄기 버튼을 누른 뒤에는 다시 켜지지 않는다.
+  const btn = $('musicBtn'), toast = $('musicToast');
+  if (!C.music) { btn.hidden = true; toast.hidden = true; }
+  else {
+    const audio = new Audio(/^(https?:|\/)/.test(C.music) ? C.music : `music/${C.music}`);
+    audio.loop = true; audio.preload = 'auto'; audio.volume = 0.6;
+    let userOff = false;
+    const setBtn = on => { btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기'); };
+    const play = () => audio.play().then(() => setBtn(true)).catch(() => setBtn(false));
+    const gestures = ['pointerdown', 'touchstart', 'keydown'];
+    const onFirst = e => {
+      if (e.target.closest && e.target.closest('#musicBtn')) return;
+      gestures.forEach(g => document.removeEventListener(g, onFirst, true));
+      if (!userOff && audio.paused) play();
+    };
+    gestures.forEach(g => document.addEventListener(g, onFirst, true));
+    btn.onclick = () => {
+      if (audio.paused) { userOff = false; play(); }
+      else { userOff = true; audio.pause(); setBtn(false); }
+    };
+    document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); else if (!userOff && btn.getAttribute('aria-pressed') === 'true') audio.play().catch(() => {}); });
+    play();
+    setTimeout(() => toast.classList.add('show'), 600);
+    setTimeout(() => toast.classList.remove('show'), 3600);
+  }
 })();

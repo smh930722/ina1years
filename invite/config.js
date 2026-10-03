@@ -36,11 +36,24 @@ window.INVITE = {
 
   // 사진은 invite/photos/ 폴더에 넣고 파일 이름만 적는다. 비어 있으면 자리만 보인다.
   photos: {
-    cover: '',
-    middle: '',
-    gallery: [],
-    timeline: { 0: '', 3: '', 6: '', 9: '', 12: '' },
+    cover: 'KakaoTalk_20261002_144355051_05.jpg',
+    middle: 'KakaoTalk_20261002_080459172_04.jpg',
+    closing: 'KakaoTalk_20260928_125130467.jpg',
+    gallery: [
+      'KakaoTalk_20261002_144355051_05.jpg',
+      'KakaoTalk_20260930_071419953_02.jpg',
+      'KakaoTalk_20260928_125130467.jpg',
+      'KakaoTalk_20261002_080459172_04.jpg',
+      'KakaoTalk_20260923_151129611_02.jpg',
+      'KakaoTalk_20261001_112840250.jpg',
+      'KakaoTalk_20260923_081759364_01.jpg',
+      'KakaoTalk_20260923_170852394_05.jpg',
+    ],
+    timeline: { 0: 'KakaoTalk_20260923_170852394_05.jpg', 3: '', 6: '', 9: '', 12: '' },
   },
+
+  // 배경음악: invite/music/ 폴더의 파일 이름. 비우면 음악 버튼이 사라진다.
+  music: '',
 
   // 테마: lilac / peach / mint / sky / butter
   theme: 'lilac',
