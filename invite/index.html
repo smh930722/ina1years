@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=Gochi+Hand&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=202610030030">
 </head>
 <body>
 <div class="toast" id="musicToast" role="status">배경음악이 준비되었습니다</div>
@@ -23,17 +23,19 @@
   <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
 </button>
 
+<div class="intro" id="intro" aria-hidden="true"><p id="introText"></p></div>
 <main class="page">
   <!-- 커버 -->
-  <section class="cover">
-    <div class="cover-photo ph" id="coverPhoto" data-label="커버 사진"></div>
+  <section class="cover" id="cover">
+    <div class="cover-slides ph" id="coverSlides" data-label="커버 사진"></div>
     <div class="cover-shade"></div>
-    <h1 class="cover-title"><span id="coverName"></span> 돌잔치에<br>초대합니다</h1>
+    <canvas class="bubbles" id="bubbles" aria-hidden="true"></canvas>
+    <h1 class="cover-title" id="coverTitle"></h1>
     <div class="cover-bottom">
-      <span class="cover-one" aria-hidden="true">1</span>
       <p class="cover-when" id="coverWhen"></p>
       <p class="cover-where" id="coverWhere"></p>
     </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
   </section>
 
   <!-- 인사말 -->
@@ -171,7 +173,7 @@
 
 <div class="snack" id="snack" role="status"></div>
 
-<script src="config.js"></script>
-<script src="app.js"></script>
+<script src="config.js?v=202610030030"></script>
+<script src="app.js?v=202610030030"></script>
 </body>
 </html>

@@ -38,17 +38,34 @@ button { font: inherit; color: inherit; }
 
 /* 커버 */
 .cover { position: relative; height: min(100svh, 860px); min-height: 600px; color: #fff; }
-.cover-photo { position: absolute; inset: 0; }
-.cover-photo:not(.has-img) { background-color: var(--accent); }
-.cover-photo:not(.has-img)::after { color: rgba(255,255,255,.85); }
+.cover { overflow: hidden; }
+.cover-slides { position: absolute; inset: 0; z-index: 0; isolation: isolate; }
+.cover-slides:not(.has-img) { background-color: var(--accent); }
+.cover-slides:not(.has-img)::after { color: rgba(255,255,255,.85); }
+.cover-slide { position: absolute; inset: 0; background: center/cover no-repeat; opacity: 0; transform: scale(1.18); transition: opacity 1.6s ease; will-change: transform, opacity; }
+.cover-slide.on { opacity: 1; animation: kenburns 7s ease-out forwards; }
+.cover-slide:nth-child(even).on { animation-name: kenburns2; }
+.bubbles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.scroll-hint { position: absolute; left: 50%; bottom: 18px; width: 22px; height: 34px; margin-left: -11px; border: 2px solid rgba(255,255,255,.8); border-radius: 12px; opacity: 0; }
+.cover.play .scroll-hint { animation: rise .8s ease forwards 3.2s; }
+.scroll-hint span { position: absolute; left: 50%; top: 6px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: #fff; animation: wheel 1.6s ease-in-out infinite; }
+.intro { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; background: var(--bg); transition: opacity .9s ease, visibility .9s; }
+.intro p { margin: 0; font-family: var(--eyebrow); font-size: 34px; color: var(--accent-deep); letter-spacing: .04em; }
+.intro p span { display: inline-block; opacity: 0; transform: translateY(10px); animation: letter .5s ease forwards; }
+.intro.out { opacity: 0; visibility: hidden; }
 .cover-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.28) 0%, transparent 32%, transparent 62%, rgba(0,0,0,.35) 100%); pointer-events: none; }
 .cover-title {
   position: absolute; top: 9%; left: 0; right: 0; margin: 0; text-align: center;
   font-family: var(--title); font-weight: 700; font-size: 40px; line-height: 1.25; letter-spacing: .02em;
-  text-shadow: 0 2px 12px rgba(0,0,0,.2); animation: rise 1.2s ease both .2s;
+  text-shadow: 0 2px 12px rgba(0,0,0,.25);
 }
 .cover-bottom { position: absolute; left: 0; right: 0; bottom: 7%; text-align: center; }
-.cover-one { display: block; font-family: var(--eyebrow); font-size: 120px; line-height: .9; color: var(--accent); text-shadow: 0 3px 0 rgba(0,0,0,.08); animation: pop 1s cubic-bezier(.3,1.6,.5,1) both .8s; }
+.cover-title .ch { display: inline-block; opacity: 0; transform: translateY(14px) scale(.9); }
+.cover.play .cover-title .ch { animation: letter .6s cubic-bezier(.3,1.4,.5,1) forwards; }
+.cover-bottom > * { opacity: 0; }
+.cover.play .cover-bottom > * { animation: rise .9s ease forwards; }
+.cover.play .cover-when { animation-delay: 2.2s; }
+.cover.play .cover-where { animation-delay: 2.5s; }
 .cover-when, .cover-where { margin: 0; font-size: 14px; text-shadow: 0 1px 6px rgba(0,0,0,.35); }
 .cover-when { margin-top: 10px; }
 
@@ -206,6 +223,10 @@ button { font: inherit; color: inherit; }
 .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
 .js .reveal.in { opacity: 1; transform: none; }
 
+@keyframes kenburns { from { transform: scale(1.18) translate(0, 0); } to { transform: scale(1.04) translate(-1.5%, -1%); } }
+@keyframes kenburns2 { from { transform: scale(1.04) translate(1.5%, 1%); } to { transform: scale(1.16) translate(0, 0); } }
+@keyframes letter { to { opacity: 1; transform: none; } }
+@keyframes wheel { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(10px); } }
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes pop { from { opacity: 0; transform: scale(.4) rotate(-12deg); } to { opacity: 1; transform: none; } }
 @keyframes up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
@@ -214,4 +235,7 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
+  .cover-title .ch, .cover-bottom > *, .scroll-hint { opacity: 1 !important; transform: none !important; }
+  .cover-slide.on { transform: none; }
+  .intro { display: none; }
 }

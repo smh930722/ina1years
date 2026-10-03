@@ -32,11 +32,15 @@ window.INVITE = {
     '한 살 먹는 건 아주 큰일이래요.\n\n이나가 무사히, 씩씩하게 1년을 자라\n그 큰일을 해냈습니다.\n\n바쁘시더라도 오셔서\n이나에게 박수 한 번 보내 주세요.',
   ],
 
+  introText: "Ina's First Birthday", // 첫 화면에 잠깐 나타나는 문구
+
   closing: '이나의 첫 번째 생일,\n함께해 주시면 큰 기쁨이 되겠습니다.',
 
   // 사진은 invite/photos/ 폴더에 넣고 파일 이름만 적는다. 비어 있으면 자리만 보인다.
   photos: {
     cover: 'KakaoTalk_20261002_144355051_05.jpg',
+    // 커버에서 차례로 바뀌며 보일 사진들 (비우면 cover 한 장만)
+    coverSlides: ['KakaoTalk_20261002_144355051_05.jpg', 'KakaoTalk_20260930_071419953_02.jpg', 'KakaoTalk_20260928_125130467.jpg'],
     middle: 'KakaoTalk_20261002_080459172_04.jpg',
     closing: 'KakaoTalk_20260928_125130467.jpg',
     gallery: [

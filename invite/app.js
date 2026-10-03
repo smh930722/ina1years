@@ -20,7 +20,11 @@
 
   // ---------- 기본 텍스트 ----------
   const babyName = C.baby.name;
-  $('coverName').textContent = babyName;
+  // 제목은 한 글자씩 나타나도록 글자마다 span으로 나눈다
+  const titleLines = [`${babyName} 돌잔치에`, '초대합니다'];
+  let k = 0;
+  $('coverTitle').innerHTML = titleLines.map(line => [...line].map(ch => ch === ' ' ? ' ' : `<span class="ch" style="animation-delay:${(0.5 + 0.09 * k++).toFixed(2)}s">${esc(ch)}</span>`).join('')).join('<br>');
+  $('coverTitle').setAttribute('aria-label', titleLines.join(' '));
   $('coverWhen').textContent = `${dateKo} ${timeKo}`;
   $('coverWhere').textContent = `${C.venue.name} ${C.venue.hall}`;
   $('greeting').textContent = C.greetings[C.greetingPick] || C.greetings[0];
@@ -67,7 +71,23 @@
   // ---------- 사진 ----------
   const src = f => (f ? (/^(https?:|\/)/.test(f) ? f : `photos/${f}`) : '');
   const setPhoto = (el, f) => { if (f) { el.style.backgroundImage = `url("${src(f)}")`; el.classList.add('has-img'); } };
-  setPhoto($('coverPhoto'), C.photos.cover);
+  // 커버: 사진이 천천히 확대되며 부드럽게 바뀌는 슬라이드 (영상 같은 연출)
+  const coverList = (C.photos.coverSlides && C.photos.coverSlides.length ? C.photos.coverSlides : [C.photos.cover]).filter(Boolean);
+  const cs = $('coverSlides');
+  if (coverList.length) {
+    cs.classList.add('has-img');
+    cs.innerHTML = coverList.map(f => `<div class="cover-slide" style="background-image:url('${src(f)}')"></div>`).join('');
+    const sl = [...cs.children];
+    let ci = 0, zTop = 1;
+    sl[0].classList.add('on');
+    if (sl.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInterval(() => {
+        const prev = sl[ci]; ci = (ci + 1) % sl.length;
+        sl[ci].classList.remove("on"); void sl[ci].offsetWidth; sl[ci].style.zIndex = ++zTop; sl[ci].classList.add("on");
+        setTimeout(() => prev.classList.remove('on'), 1600);
+      }, 5200);
+    }
+  }
   setPhoto($('midPhoto'), C.photos.middle);
   setPhoto($('closingPhoto'), C.photos.closing || C.photos.cover);
 
@@ -197,7 +217,7 @@
 
   // ---------- 꾸미기 패널 (테마·음악 고르기) ----------
   const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
-  if (C.showThemePicker || C.showMusicPicker) {
+  if ((C.showThemePicker || C.showMusicPicker) && $('tuner')) {
     $('tuner').hidden = false;
     $('tunerToggle').onclick = () => {
       const p = $('tunerPanel'), open = p.hidden;
@@ -215,7 +235,7 @@
     document.documentElement.dataset.theme = t;
     document.querySelectorAll('#swatches button').forEach(b => b.setAttribute('aria-pressed', b.dataset.t === t));
   };
-  if (C.showThemePicker) {
+  if (C.showThemePicker && $('swatches')) {
     $('swatches').innerHTML = Object.entries(THEMES).map(([k, [c, n]]) => `<button type="button" data-t="${k}" style="background:${c}" aria-label="${n}" title="${n}"></button>`).join('');
     $('themeRow').hidden = false;
     $('swatches').onclick = e => { const b = e.target.closest('button'); if (!b) return; setTheme(b.dataset.t); store.set('ina-theme', b.dataset.t); };
@@ -254,7 +274,7 @@
     };
     document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); else if (!userOff && btn.getAttribute('aria-pressed') === 'true') audio.play().catch(() => {}); });
 
-    if (C.showMusicPicker && tracks.length) {
+    if (C.showMusicPicker && tracks.length && $('tracks')) {
       const mark = () => document.querySelectorAll('#tracks button').forEach(b => b.setAttribute('aria-pressed', b.dataset.f === track));
       $('tracks').innerHTML = tracks.map((t, i) => `<button type="button" data-f="${esc(t.file)}"><b>${i + 1}</b><span>${esc(t.title)}<small>${esc(t.by || '')}</small></span></button>`).join('');
       $('musicRow').hidden = false;
@@ -268,5 +288,49 @@
     play();
     setTimeout(() => toast.classList.add('show'), 600);
     setTimeout(() => toast.classList.remove('show'), 3600);
+  }
+
+  // ---------- 첫 화면 연출: 인트로 문구 → 커버 재생 ----------
+  const cover = $('cover'), introEl = $('intro');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const startCover = () => cover.classList.add('play');
+  if (introEl && !reduce) {
+    const word = C.introText || `${babyName}'s First Birthday`;
+    $('introText').innerHTML = [...word].map((ch, i) => ch === ' ' ? ' ' : `<span style="animation-delay:${(0.15 + i * 0.06).toFixed(2)}s">${esc(ch)}</span>`).join('');
+    document.body.style.overflow = 'hidden';
+    const done = () => { if (introEl.classList.contains('out')) return; introEl.classList.add('out'); document.body.style.overflow = ''; startCover(); };
+    setTimeout(done, 400 + word.length * 60 + 900);
+    introEl.addEventListener('click', done);
+  } else {
+    if (introEl) introEl.hidden = true;
+    startCover();
+  }
+
+  // ---------- 커버 비눗방울 ----------
+  const cv = $('bubbles');
+  if (cv && !reduce) {
+    const g = cv.getContext('2d');
+    let W = 0, H = 0, dpr = 1;
+    const size = () => { dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0); };
+    size(); addEventListener('resize', size);
+    const make = (fromBottom) => ({ x: Math.random() * W, y: fromBottom ? H + 20 : Math.random() * H, r: 5 + Math.random() * 16, v: 0.25 + Math.random() * 0.6, sway: Math.random() * Math.PI * 2, a: 0.35 + Math.random() * 0.4 });
+    const bubbles = Array.from({ length: 16 }, () => make(false));
+    let visible = true;
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(cover);
+    const draw = () => {
+      if (visible) {
+        g.clearRect(0, 0, W, H);
+        for (const b of bubbles) {
+          b.y -= b.v; b.sway += 0.015; const x = b.x + Math.sin(b.sway) * 10;
+          if (b.y < -30) Object.assign(b, make(true));
+          const grd = g.createRadialGradient(x - b.r * 0.35, b.y - b.r * 0.35, b.r * 0.1, x, b.y, b.r);
+          grd.addColorStop(0, `rgba(255,255,255,${b.a})`); grd.addColorStop(0.7, `rgba(255,255,255,${b.a * 0.15})`); grd.addColorStop(1, `rgba(255,255,255,${b.a * 0.6})`);
+          g.beginPath(); g.arc(x, b.y, b.r, 0, Math.PI * 2); g.fillStyle = grd; g.fill();
+          g.lineWidth = 1; g.strokeStyle = `rgba(255,255,255,${b.a * 0.8})`; g.stroke();
+        }
+      }
+      requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
   }
 })();
