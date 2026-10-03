@@ -128,10 +128,13 @@
   </section>
 </main>
 
-<!-- 테마 고르기 (config.showThemePicker) -->
-<div class="theme-picker" id="themePicker" hidden>
-  <span>테마색</span>
-  <div class="swatches" id="swatches"></div>
+<!-- 꾸미기: 테마색·배경음악 고르기 (config.showThemePicker / showMusicPicker) -->
+<div class="tuner" id="tuner" hidden>
+  <div class="tuner-panel" id="tunerPanel" hidden>
+    <div class="tuner-row" id="themeRow" hidden><span>테마색</span><div class="swatches" id="swatches"></div></div>
+    <div class="tuner-row" id="musicRow" hidden><span>배경음악</span><div class="tracks" id="tracks"></div></div>
+  </div>
+  <button class="tuner-toggle" id="tunerToggle" type="button" aria-expanded="false" aria-controls="tunerPanel">꾸미기</button>
 </div>
 
 <!-- 모달들 -->

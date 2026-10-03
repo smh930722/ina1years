@@ -195,19 +195,30 @@
   };
   if (C.kakaoJsKey) { const s = document.createElement('script'); s.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js'; s.crossOrigin = 'anonymous'; document.head.appendChild(s); }
 
+  // ---------- 꾸미기 패널 (테마·음악 고르기) ----------
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  if (C.showThemePicker || C.showMusicPicker) {
+    $('tuner').hidden = false;
+    $('tunerToggle').onclick = () => {
+      const p = $('tunerPanel'), open = p.hidden;
+      p.hidden = !open; $('tunerToggle').setAttribute('aria-expanded', open);
+      $('tunerToggle').textContent = open ? '닫기' : '꾸미기';
+    };
+  }
+
   // ---------- 테마 ----------
-  const THEMES = { lilac: '#c2a3c2', peach: '#f0ad94', mint: '#9fcfbd', sky: '#a9c6e8', butter: '#ecd27f' };
+  const THEMES = { lilac: ['#c2a3c2', '라일락'], peach: ['#f0ad94', '피치'], mint: ['#9fcfbd', '민트'], sky: ['#a9c6e8', '하늘'], butter: ['#ecd27f', '버터'] };
   const qsTheme = new URLSearchParams(location.search).get('theme');
   let theme = THEMES[qsTheme] ? qsTheme : C.theme;
-  try { if (C.showThemePicker && THEMES[localStorage.getItem('ina-theme')]) theme = localStorage.getItem('ina-theme'); } catch (e) {}
+  if (C.showThemePicker && THEMES[store.get('ina-theme')]) theme = store.get('ina-theme');
   const setTheme = t => {
     document.documentElement.dataset.theme = t;
     document.querySelectorAll('#swatches button').forEach(b => b.setAttribute('aria-pressed', b.dataset.t === t));
   };
   if (C.showThemePicker) {
-    $('swatches').innerHTML = Object.entries(THEMES).map(([k, c]) => `<button type="button" data-t="${k}" style="background:${c}" aria-label="${k} 테마"></button>`).join('');
-    $('themePicker').hidden = false;
-    $('swatches').onclick = e => { const b = e.target.closest('button'); if (!b) return; setTheme(b.dataset.t); try { localStorage.setItem('ina-theme', b.dataset.t); } catch (_) {} };
+    $('swatches').innerHTML = Object.entries(THEMES).map(([k, [c, n]]) => `<button type="button" data-t="${k}" style="background:${c}" aria-label="${n}" title="${n}"></button>`).join('');
+    $('themeRow').hidden = false;
+    $('swatches').onclick = e => { const b = e.target.closest('button'); if (!b) return; setTheme(b.dataset.t); store.set('ina-theme', b.dataset.t); };
   }
   setTheme(theme);
 
@@ -217,18 +228,22 @@
 
   // ---------- 배경음악 ----------
   // 휴대폰 브라우저는 소리 있는 자동재생을 막는다. 그래서 바로 재생을 시도하고,
-  // 막히면 화면을 처음 만지는 순간(탭·스크롤 시작) 재생한다. 끄기 버튼을 누른 뒤에는 다시 켜지지 않는다.
+  // 막히면 화면을 처음 만지는 순간 재생한다. 끄기 버튼을 누른 뒤에는 다시 켜지지 않는다.
   const btn = $('musicBtn'), toast = $('musicToast');
-  if (!C.music) { btn.hidden = true; toast.hidden = true; }
+  const tracks = C.musicOptions || [];
+  let track = C.music;
+  if (C.showMusicPicker && tracks.some(t => t.file === store.get('ina-music'))) track = store.get('ina-music');
+  if (!track) { btn.hidden = true; toast.hidden = true; }
   else {
-    const audio = new Audio(/^(https?:|\/)/.test(C.music) ? C.music : `music/${C.music}`);
+    const url = f => (/^(https?:|\/)/.test(f) ? f : `music/${f}`);
+    const audio = new Audio(url(track));
     audio.loop = true; audio.preload = 'auto'; audio.volume = 0.6;
     let userOff = false;
     const setBtn = on => { btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기'); };
     const play = () => audio.play().then(() => setBtn(true)).catch(() => setBtn(false));
     const gestures = ['pointerdown', 'touchstart', 'keydown'];
     const onFirst = e => {
-      if (e.target.closest && e.target.closest('#musicBtn')) return;
+      if (e.target.closest && e.target.closest('#musicBtn, #tuner')) return;
       gestures.forEach(g => document.removeEventListener(g, onFirst, true));
       if (!userOff && audio.paused) play();
     };
@@ -238,6 +253,18 @@
       else { userOff = true; audio.pause(); setBtn(false); }
     };
     document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); else if (!userOff && btn.getAttribute('aria-pressed') === 'true') audio.play().catch(() => {}); });
+
+    if (C.showMusicPicker && tracks.length) {
+      const mark = () => document.querySelectorAll('#tracks button').forEach(b => b.setAttribute('aria-pressed', b.dataset.f === track));
+      $('tracks').innerHTML = tracks.map((t, i) => `<button type="button" data-f="${esc(t.file)}"><b>${i + 1}</b><span>${esc(t.title)}<small>${esc(t.by || '')}</small></span></button>`).join('');
+      $('musicRow').hidden = false;
+      $('tracks').onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        track = b.dataset.f; store.set('ina-music', track); mark();
+        audio.src = url(track); userOff = false; play();
+      };
+      mark();
+    }
     play();
     setTimeout(() => toast.classList.add('show'), 600);
     setTimeout(() => toast.classList.remove('show'), 3600);
