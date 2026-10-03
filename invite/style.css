@@ -57,6 +57,20 @@ button { font: inherit; color: inherit; }
 .intro-date .num { text-combine-upright: all; -webkit-text-combine: horizontal; letter-spacing: 0; }
 .intro-date .seal { writing-mode: horizontal-tb; display: grid; place-items: center; width: 2.2em; height: 2.2em; border-radius: 4px; background: #c8413a; color: #fff6ef; font-family: var(--title); font-weight: 700; font-size: .9em; letter-spacing: 0; line-height: 1; transform: rotate(-4deg); box-shadow: inset 0 0 0 2px rgba(255,255,255,.35); }
 .intro-col span { display: block; opacity: 0; transform: translateY(-10px); animation: letter .55s ease forwards; }
+
+/* 세로쓰기 첫 화면 (귀여운 버전): 글자마다 파스텔 방울 위에 올리고 통통 튀어나오게 */
+.intro.cute { --p0: #ffd3e1; --p1: #ffeaa6; --p2: #c9efe0; --p3: #cfe0fb; --p4: #e6d6f7; background: radial-gradient(120% 80% at 50% 0%, #fff 0%, var(--soft) 70%); }
+.intro.cute .intro-cols { position: relative; z-index: 1; gap: calc(var(--ch) * .18); color: var(--ink); }
+.intro.cute .intro-col span { width: 1.04em; height: 1.04em; margin: .04em 0; display: grid; place-items: center; border-radius: 50%; background: var(--t); font-size: .78em; color: #4a3a4e; box-shadow: inset 0 -.06em 0 rgba(0,0,0,.06), 0 .06em .18em rgba(120,90,130,.12); transform: scale(0) rotate(var(--r)); animation-name: boing; animation-duration: .6s; animation-timing-function: cubic-bezier(.3,1.7,.5,1); }
+.intro.cute .intro-col { margin-top: calc(var(--offset) * .874em); }
+.intro.cute .intro-date { font-family: var(--title); font-weight: 700; color: var(--accent-deep); letter-spacing: .12em; }
+.intro.cute .intro-date .seal { width: 2.5em; height: 2.5em; border-radius: 50%; background: var(--accent); color: #fff; transform: rotate(-8deg); box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--accent); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .05em; font-size: .8em; }
+.intro.cute .intro-date .seal svg { width: .9em; height: .9em; fill: #fff; }
+.intro-deco { position: absolute; inset: 0; overflow: hidden; pointer-events: none; color: var(--accent); }
+.intro-deco .ib { position: absolute; bottom: -20px; width: var(--s); height: var(--s); border-radius: 50%; background: var(--t); box-shadow: inset -1px -1px 0 rgba(255,255,255,.7), 0 0 0 1px rgba(255,255,255,.9); animation: floatup var(--d) linear infinite; }
+.intro-deco .spk { position: absolute; }
+@keyframes boing { 70% { opacity: 1; transform: scale(1.15) rotate(var(--r)); } 100% { opacity: 1; transform: scale(1) rotate(var(--r)); } }
+@keyframes floatup { from { transform: translate(0, 0); } 50% { transform: translate(8px, -55vh); } to { transform: translate(-6px, -110vh); } }
 .intro.out { opacity: 0; visibility: hidden; }
 
 /* 아치 사진 첫 화면 */

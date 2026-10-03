@@ -388,18 +388,23 @@
     let n = 0, before = 0;
     $('introText').innerHTML = cols.map(col => {
       const chars = [...col.replace(/\s/g, '')];
-      const html = `<div class="intro-col" style="--offset:${before}">${chars.map(ch => `<span style="animation-delay:${(0.2 + n++ * 0.16).toFixed(2)}s">${esc(ch)}</span>`).join('')}</div>`;
+      const html = `<div class="intro-col" style="--offset:${before}">${chars.map(ch => { const i = n++; return `<span style="--t:var(--p${i % 5});--r:${((i * 41) % 15) - 7}deg;animation-delay:${(0.2 + i * 0.16).toFixed(2)}s">${esc(ch)}</span>`; }).join('')}</div>`;
       before += chars.length;
       return html;
     }).join('');
     // 맨 왼쪽 줄: 날짜를 작게, 숫자는 세로줄 안에서 가로로 붙여 쓰고 끝에 이름 도장
     const dateText = `${m}월 ${d}일 ${dowKo[dow]}요일`;
     const dateHtml = dateText.replace(/\d+/g, x => `<span class="num">${x}</span>`);
-    $('introText').insertAdjacentHTML('beforeend', `<div class="intro-date" style="animation-delay:${(0.3 + n * 0.16).toFixed(2)}s">${dateHtml}<span class="seal">${esc(babyName)}</span></div>`);
+    $('introText').insertAdjacentHTML('beforeend', `<div class="intro-date" style="animation-delay:${(0.3 + n * 0.16).toFixed(2)}s">${dateHtml}<span class="seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 8.1a4.3 4.3 0 0 1 7.5 2.7C19.5 16.4 12 21 12 21z"/></svg>${esc(babyName)}</span></div>`);
+    // 배경: 커버와 같은 작은 파스텔 방울 + 반짝이 별
+    introEl.classList.add('cute');
+    const deco = Array.from({ length: 18 }, (_, i) => `<i class="ib" style="left:${(i * 53) % 100}%;--s:${4 + (i * 7) % 9}px;--d:${(5 + (i * 3) % 6)}s;animation-delay:-${(i * 0.7).toFixed(1)}s;--t:var(--p${i % 5})"></i>`).join('')
+      + [[14, 16, 18, .8], [82, 12, 14, 1.4], [10, 78, 12, 2.2], [86, 70, 20, 1.8]].map(([x, yy, sz, dl]) => sparkle(x, yy, sz, dl)).join('');
+    introEl.insertAdjacentHTML('afterbegin', `<div class="intro-deco" aria-hidden="true">${deco}</div>`);
     const word = cols.join('') + '    ';
     document.body.style.overflow = 'hidden';
     const done = () => { if (introEl.classList.contains('out')) return; introEl.classList.add('out'); document.body.style.overflow = ''; startCover(); };
-    setTimeout(done, 400 + word.length * 160 + 1100);
+    setTimeout(done, 400 + word.length * 160 + 1700);
     introEl.addEventListener('click', done);
   } else {
     if (introEl) introEl.hidden = true;
