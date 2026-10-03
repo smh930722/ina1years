@@ -315,9 +315,10 @@
   const startCover = () => cover.classList.add('play');
   const introStyle = (() => {
     const q = new URLSearchParams(location.search).get('intro');
-    if (q === 'arch' || q === 'vertical') return q;
+    const ok = v => v === 'arch' || v === 'vertical' || v === 'crayon';
+    if (ok(q)) return q;
     const saved = store.get('ina-intro');
-    if (C.showIntroPicker && (saved === 'arch' || saved === 'vertical')) return saved;
+    if (C.showIntroPicker && ok(saved)) return saved;
     return C.introStyle || 'vertical';
   })();
   if (C.showIntroPicker && $('introPick')) {
@@ -352,6 +353,35 @@
     document.body.style.overflow = 'hidden';
     const done = () => { if (introEl.classList.contains('out')) return; introEl.classList.add('out'); document.body.style.overflow = ''; startCover(); };
     setTimeout(done, 6200);
+    introEl.addEventListener('click', done);
+  } else if (introEl && !reduce && introStyle === 'crayon') {
+    // B안: 크레용으로 그린 듯한 '이나는 못말려!' + 해바라기 + 크레용 액자 사진
+    const COLORS = ['#e8423a', '#f5b800', '#2f7fd8', '#3faa4a', '#ff8a1f', '#e8589a'];
+    let k = 0;
+    const word = line => [...line].map(ch => ch === ' ' ? '<i class="sp"></i>' : `<span style="color:${COLORS[k % COLORS.length]};--r:${((k * 37) % 13) - 6}deg;animation-delay:${(0.35 + k++ * 0.12).toFixed(2)}s">${esc(ch)}</span>`).join('');
+    const flower = (x, y, s, d) => {
+      let petals = '';
+      for (let i = 0; i < 12; i++) petals += `<ellipse cx="0" cy="-15" rx="5.5" ry="11" transform="rotate(${i * 30})"/>`;
+      return `<svg class="cr-flower" style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;animation-delay:${d}s" viewBox="-30 -30 60 60"><g fill="#f5c400" stroke="#d99a00" stroke-width="1">${petals}</g><circle r="10" fill="#7a4a1d"/><g fill="#3d2410"><circle cx="-4" cy="-3" r="1.4"/><circle cx="3" cy="-4" r="1.4"/><circle cx="0" cy="3" r="1.4"/><circle cx="5" cy="2" r="1.2"/><circle cx="-5" cy="4" r="1.2"/></g></svg>`;
+    };
+    $('introText').hidden = true;
+    const el = $('introCrayon');
+    el.hidden = false;
+    el.innerHTML = `
+      ${flower(-6, 3, 96, 0.1)}${flower(80, 10, 64, 0.3)}${flower(84, 74, 104, 2.6)}${flower(-8, 84, 70, 2.8)}
+      <p class="cr-kicker">신이나의 첫 번째 생일잔치</p>
+      <h2 class="cr-title"><span class="ln">${word(`${babyName}는`)}</span><span class="ln">${word('못말려!')}</span></h2>
+      <svg class="cr-scribble" viewBox="0 0 300 30" preserveAspectRatio="none"><path pathLength="100" d="M6 18 C40 6 60 28 95 14 S150 4 180 18 S240 28 294 10"/></svg>
+      <div class="cr-photo-wrap">
+        <div class="cr-photo" style="background-image:url('${src(C.crayonPhoto || C.photos.middle || C.photos.cover)}')"></div>
+        <p class="cr-bubble">꼭 와야 돼~!</p>
+      </div>
+      <p class="cr-date">${m}월 ${d}일 ${dowKo[dow]}요일 ${timeKo}</p>
+      <p class="cr-place">${esc(C.venue.name)} ${esc(C.venue.hall)}</p>`;
+    introEl.classList.add('crayon');
+    document.body.style.overflow = 'hidden';
+    const done = () => { if (introEl.classList.contains('out')) return; introEl.classList.add('out'); document.body.style.overflow = ''; startCover(); };
+    setTimeout(done, 6800);
     introEl.addEventListener('click', done);
   } else if (introEl && !reduce) {
     const cols = C.introColumns && C.introColumns.length ? C.introColumns : [`${babyName}의`, '첫번째생일'];

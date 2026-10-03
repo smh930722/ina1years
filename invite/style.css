@@ -79,6 +79,32 @@ button { font: inherit; color: inherit; }
 .ia-date { margin: 6px 0 0; font-family: 'Fraunces', Georgia, serif; font-size: 25px; letter-spacing: .02em; opacity: 0; animation: rise .8s ease forwards 3.25s; }
 .ia-date b { font-weight: 400; margin: 0 12px; font-size: .8em; opacity: .7; }
 .ia-place { margin: 4px 0 0; font-family: var(--body); font-size: 14px; opacity: 0; animation: rise .8s ease forwards 3.45s; }
+/* B안: 신짱아 크레용 첫 화면 */
+.intro.crayon { background: #fffbea url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23p)'/%3E%3C/svg%3E"); }
+.intro-crayon { position: relative; width: min(100%, 430px); height: 100%; overflow: hidden; padding: calc(30px + env(safe-area-inset-top, 0px)) 24px calc(24px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; align-items: center; color: #3a2a1e; }
+.cr-flower { position: absolute; z-index: 0; filter: url(#crayon); opacity: 0; transform: scale(0) rotate(-90deg); animation: bloom .9s cubic-bezier(.3,1.5,.5,1) forwards, spin 14s linear infinite 1s; }
+.cr-kicker { position: relative; z-index: 1; margin: 6vh 0 0; font-family: 'Gamja Flower', var(--title); font-size: 21px; opacity: 0; animation: rise .7s ease forwards .1s; }
+.cr-title { position: relative; z-index: 1; margin: 4px 0 0; display: flex; flex-direction: column; align-items: center; font-family: 'Jua', var(--title); font-weight: 400; font-size: clamp(54px, 17vw, 76px); line-height: 1.05; filter: url(#crayon); }
+.cr-title .ln { display: flex; }
+.cr-title .sp { width: .25em; }
+.cr-title span span { display: inline-block; -webkit-text-stroke: 2.5px #2b2118; paint-order: stroke fill; text-shadow: 3px 4px 0 rgba(43,33,24,.18); opacity: 0; transform: translateY(-40px) rotate(0) scale(.4); animation: crpop .6s cubic-bezier(.3,1.8,.5,1) forwards; }
+.cr-scribble { position: relative; z-index: 1; width: 72%; height: 22px; margin-top: 2px; overflow: visible; filter: url(#crayon); }
+.cr-scribble path { fill: none; stroke: #e8423a; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw .8s ease forwards 1.7s; }
+.cr-photo-wrap { position: relative; z-index: 1; margin-top: 3.5vh; width: 70%; flex: 1; min-height: 0; max-height: 42vh; opacity: 0; transform: translateY(60px) rotate(8deg); animation: crdrop .9s cubic-bezier(.3,1.5,.5,1) forwards 2.2s; }
+.cr-photo { position: absolute; inset: 0; border-radius: 18px 26px 16px 24px; background: center/cover no-repeat; transform: rotate(-3deg); box-shadow: 0 0 0 7px #fff, 0 0 0 11px #2f7fd8, 6px 10px 0 11px rgba(43,33,24,.12); }
+.cr-bubble { position: absolute; right: -14%; top: -7%; margin: 0; padding: 8px 14px; border-radius: 20px; background: #fff; border: 3px solid #2b2118; font-family: 'Gamja Flower', var(--title); font-size: 20px; white-space: nowrap; transform: rotate(6deg) scale(0); transform-origin: left bottom; animation: bubble .5s cubic-bezier(.3,1.8,.5,1) forwards 3.2s; filter: url(#crayon); }
+.cr-bubble::after { content: ''; position: absolute; left: 14px; bottom: -12px; border: 7px solid transparent; border-top-color: #2b2118; border-left-color: #2b2118; }
+.cr-date { position: relative; z-index: 1; margin: 22px 0 0; font-family: 'Gamja Flower', var(--title); font-size: 24px; opacity: 0; animation: rise .7s ease forwards 3.5s; }
+.cr-place { position: relative; z-index: 1; margin: 0; font-family: 'Gamja Flower', var(--title); font-size: 19px; color: #6a5440; opacity: 0; animation: rise .7s ease forwards 3.7s; }
+@keyframes bloom { to { opacity: 1; transform: scale(1) rotate(0); } }
+@keyframes spin { from { rotate: 0deg; } to { rotate: 360deg; } }
+@keyframes crpop { 70% { opacity: 1; transform: translateY(4px) rotate(var(--r)) scale(1.08); } 100% { opacity: 1; transform: translateY(0) rotate(var(--r)) scale(1); } }
+@keyframes crdrop { to { opacity: 1; transform: none; } }
+@keyframes bubble { to { transform: rotate(6deg) scale(1); } }
+.seg3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.seg3 button { min-height: 44px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); font-size: 13px; line-height: 1.25; cursor: pointer; }
+.seg3 button small { display: block; font-size: 11px; color: var(--muted); }
+.seg3 button[aria-pressed="true"] { border-color: var(--accent); background: var(--soft); color: var(--accent-deep); }
 .seg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .seg2 button { min-height: 36px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); font-size: 13px; cursor: pointer; }
 .seg2 button[aria-pressed="true"] { border-color: var(--accent); background: var(--soft); color: var(--accent-deep); }

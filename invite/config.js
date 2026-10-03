@@ -56,10 +56,11 @@ window.INVITE = {
     '한 살 먹는 건 아주 큰일이래요.\n\n이나가 무사히, 씩씩하게 1년을 자라\n그 큰일을 해냈습니다.\n\n바쁘시더라도 오셔서\n이나에게 박수 한 번 보내 주세요.',
   ],
 
-  // 첫 화면 연출: 'vertical'(세로쓰기) 또는 'arch'(아치 사진 + happy birthday)
+  // 첫 화면 연출: 'vertical'(세로쓰기, 기본) / 'arch'(A안 아치 사진) / 'crayon'(B안 신짱아 크레용)
   introStyle: 'vertical',
   showIntroPicker: true, // 꾸미기 패널에서 첫 화면을 바꿔 볼 수 있게 (정하면 false)
-  introPhoto: 'KakaoTalk_20261002_144355051_05.jpg', // 아치 사진 첫 화면에 쓸 사진
+  introPhoto: 'KakaoTalk_20261002_144355051_05.jpg', // A안 아치 사진에 쓸 사진
+  crayonPhoto: 'KakaoTalk_20261002_080459172_04.jpg', // B안 크레용 액자에 쓸 사진
 
   // 첫 화면 세로쓰기 문구. 오른쪽 줄부터 읽히고, 다음 줄은 앞 줄이 끝난 높이부터 이어진다.
   introColumns: ['이나의', '첫번째생일'],
