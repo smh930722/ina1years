@@ -131,7 +131,23 @@
   $('kakaoMap').href = `https://place.map.kakao.com/${C.venue.kakaoPlaceId}`;
   $('naverMap').href = `https://map.naver.com/p/search/${encodeURIComponent(C.venue.naverQuery)}`;
   $('venueTel').href = `tel:${C.venue.tel.replace(/-/g, '')}`;
-  $('transport').innerHTML = C.venue.transport.map(t => `<div><dt>${esc(t.title)}</dt><dd>${t.lines.map(l => `<span>${esc(l)}</span>`).join('')}</dd></div>`).join('');
+  // 교통편: 줄을 둘씩 묶어 '노선/출구'(진하게)와 '설명'(옅게)으로 보여 준다. 지하철·버스만 짝지어 쓴다.
+  $('transport').innerHTML = C.venue.transport.map(t => {
+    const paired = t.title === '지하철' || t.title === '버스';
+    const body = paired
+      ? t.lines.reduce((a, l, i) => a + (i % 2 === 0 ? `<span class="tp-main">${esc(l)}</span>` : `<span class="tp-sub">${esc(l)}</span>`), '')
+      : t.lines.map(l => `<span class="tp-main">${esc(l)}</span>`).join('');
+    return `<div><dt>${esc(t.title)}</dt><dd>${body}</dd></div>`;
+  }).join('');
+  $('venueOld').textContent = C.venue.oldName ? `(${C.venue.oldName})` : '';
+  if (C.venue.mapImage) {
+    $('mapImg').src = src(C.venue.mapImage);
+    $('mapImgBtn').onclick = () => {
+      $('lbTrack').innerHTML = `<img src="${src(C.venue.mapImage)}" alt="약도" style="background:#fff">`;
+      $('lbCount').textContent = '';
+      lb.hidden = false; document.body.style.overflow = 'hidden';
+    };
+  } else $('mapImgBtn').hidden = true;
 
   // ---------- 알림·복사 ----------
   const snack = msg => { const s = $('snack'); s.textContent = msg; s.classList.add('show'); clearTimeout(snack.t); snack.t = setTimeout(() => s.classList.remove('show'), 1800); };

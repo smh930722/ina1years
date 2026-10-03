@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=Gochi+Hand&display=swap">
-<link rel="stylesheet" href="style.css?v=202610030041">
+<link rel="stylesheet" href="style.css?v=202610030045">
 </head>
 <body>
 <div class="toast" id="musicToast" role="status">배경음악이 준비되었습니다</div>
@@ -90,16 +90,10 @@
   <section class="sec location reveal">
     <h2 class="eyebrow">LOCATION</h2>
     <p class="venue-name" id="venueName"></p>
+    <p class="venue-old" id="venueOld"></p>
     <p class="venue-addr"><span id="venueAddr"></span> <button type="button" class="link" id="copyAddr">복사</button></p>
     <div class="map-card">
-      <svg viewBox="0 0 320 150" aria-hidden="true" class="map-art">
-        <rect width="320" height="150" fill="var(--soft)"/>
-        <path d="M0 96H320M0 40H320M96 0V150M232 0V150" stroke="var(--line)" stroke-width="10"/>
-        <path d="M0 118L320 72" stroke="var(--card)" stroke-width="16"/>
-        <circle cx="160" cy="88" r="20" fill="var(--accent)" opacity=".25"/>
-        <path d="M160 58c-11 0-19 8-19 18 0 14 19 30 19 30s19-16 19-30c0-10-8-18-19-18z" fill="var(--accent-deep)"/>
-        <circle cx="160" cy="76" r="6" fill="var(--card)"/>
-      </svg>
+      <button type="button" class="map-img" id="mapImgBtn" aria-label="약도 크게 보기"><img id="mapImg" alt="파티하우스더엘 약도: 가산디지털단지역 1호선 3번 출구, 7호선 6번 출구에서 엘리시아빌딩까지" loading="lazy"></button>
       <div class="map-btns">
         <a class="btn ghost" id="kakaoMap" target="_blank" rel="noopener">카카오맵</a>
         <a class="btn ghost" id="naverMap" target="_blank" rel="noopener">네이버지도</a>
@@ -173,7 +167,7 @@
 
 <div class="snack" id="snack" role="status"></div>
 
-<script src="config.js?v=202610030041"></script>
-<script src="app.js?v=202610030041"></script>
+<script src="config.js?v=202610030045"></script>
+<script src="app.js?v=202610030045"></script>
 </body>
 </html>
