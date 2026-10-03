@@ -296,10 +296,10 @@
   const startCover = () => cover.classList.add('play');
   if (introEl && !reduce) {
     const word = C.introText || `${babyName}'s First Birthday`;
-    $('introText').innerHTML = [...word].map((ch, i) => ch === ' ' ? ' ' : `<span style="animation-delay:${(0.15 + i * 0.06).toFixed(2)}s">${esc(ch)}</span>`).join('');
+    $('introText').innerHTML = [...word].map((ch, i) => ch === ' ' ? ' ' : `<span style="animation-delay:${(0.15 + i * 0.11).toFixed(2)}s">${esc(ch)}</span>`).join('');
     document.body.style.overflow = 'hidden';
     const done = () => { if (introEl.classList.contains('out')) return; introEl.classList.add('out'); document.body.style.overflow = ''; startCover(); };
-    setTimeout(done, 400 + word.length * 60 + 900);
+    setTimeout(done, 400 + word.length * 110 + 1000);
     introEl.addEventListener('click', done);
   } else {
     if (introEl) introEl.hidden = true;
