@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko" data-theme="lilac">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>신이나 첫 번째 생일에 초대합니다</title>
+<meta name="description" content="2026년 12월 12일 오전 11시 30분 · 파티하우스더엘 씨엘로홀">
+<meta property="og:type" content="website">
+<meta property="og:title" content="신이나 첫 번째 생일에 초대합니다">
+<meta property="og:description" content="12월 12일 오전 11시 30분 · 파티하우스더엘 씨엘로홀">
+<meta property="og:image" content="photos/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=Gochi+Hand&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="toast" id="musicToast" role="status">배경음악이 준비되었습니다</div>
+<button class="music" id="musicBtn" type="button" aria-pressed="false" aria-label="배경음악 켜기">
+  <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+</button>
+
+<main class="page">
+  <!-- 커버 -->
+  <section class="cover">
+    <div class="cover-photo ph" id="coverPhoto" data-label="커버 사진"></div>
+    <div class="cover-shade"></div>
+    <h1 class="cover-title"><span id="coverName"></span> 돌잔치에<br>초대합니다</h1>
+    <div class="cover-bottom">
+      <span class="cover-one" aria-hidden="true">1</span>
+      <p class="cover-when" id="coverWhen"></p>
+      <p class="cover-where" id="coverWhere"></p>
+    </div>
+  </section>
+
+  <!-- 인사말 -->
+  <section class="sec greeting reveal">
+    <p class="greet-text" id="greeting"></p>
+    <p class="greet-from" id="greetFrom"></p>
+  </section>
+
+  <div class="mid-photo ph reveal" id="midPhoto" data-label="중간 사진"></div>
+
+  <!-- 날짜 -->
+  <section class="sec party reveal">
+    <div class="vdate" id="vdate" aria-hidden="true"></div>
+    <h2 class="eyebrow">PARTY DAY</h2>
+    <p class="date-ko" id="dateKo"></p>
+    <p class="date-en" id="dateEn"></p>
+    <div class="calendar" id="calendar"></div>
+    <div class="countdown" id="countdown" aria-live="off"></div>
+    <p class="dleft" id="dleft"></p>
+  </section>
+
+  <!-- 가족 -->
+  <section class="sec family reveal">
+    <div class="family-row">
+      <div class="who"><span class="role">아기</span><b id="famBaby"></b></div>
+      <div class="who"><span class="role">아빠</span><b id="famDad"></b></div>
+      <div class="who"><span class="role">엄마</span><b id="famMom"></b></div>
+    </div>
+    <button class="btn" type="button" data-open="contactModal">축하 연락하기</button>
+  </section>
+
+  <!-- 갤러리 -->
+  <section class="sec gallery reveal">
+    <h2 class="eyebrow">GALLERY</h2>
+    <p class="hint">사진을 누르면 크게 볼 수 있어요</p>
+    <div class="slider" id="slider"></div>
+    <div class="slider-nav">
+      <button type="button" class="arrow" id="prevBtn" aria-label="이전 사진">‹</button>
+      <span id="slideCount">1 / 1</span>
+      <button type="button" class="arrow" id="nextBtn" aria-label="다음 사진">›</button>
+    </div>
+  </section>
+
+  <!-- 이나의 1년 -->
+  <section class="sec year reveal">
+    <h2 class="eyebrow">OUR FIRST YEAR</h2>
+    <p class="hint" id="yearHint"></p>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <!-- 오시는 길 -->
+  <section class="sec location reveal">
+    <h2 class="eyebrow">LOCATION</h2>
+    <p class="venue-name" id="venueName"></p>
+    <p class="venue-addr"><span id="venueAddr"></span> <button type="button" class="link" id="copyAddr">복사</button></p>
+    <div class="map-card">
+      <svg viewBox="0 0 320 150" aria-hidden="true" class="map-art">
+        <rect width="320" height="150" fill="var(--soft)"/>
+        <path d="M0 96H320M0 40H320M96 0V150M232 0V150" stroke="var(--line)" stroke-width="10"/>
+        <path d="M0 118L320 72" stroke="var(--card)" stroke-width="16"/>
+        <circle cx="160" cy="88" r="20" fill="var(--accent)" opacity=".25"/>
+        <path d="M160 58c-11 0-19 8-19 18 0 14 19 30 19 30s19-16 19-30c0-10-8-18-19-18z" fill="var(--accent-deep)"/>
+        <circle cx="160" cy="76" r="6" fill="var(--card)"/>
+      </svg>
+      <div class="map-btns">
+        <a class="btn ghost" id="kakaoMap" target="_blank" rel="noopener">카카오맵</a>
+        <a class="btn ghost" id="naverMap" target="_blank" rel="noopener">네이버지도</a>
+        <a class="btn ghost" id="venueTel">전화 문의</a>
+      </div>
+    </div>
+    <dl class="transport" id="transport"></dl>
+  </section>
+
+  <!-- 방명록 -->
+  <section class="sec message reveal">
+    <h2 class="eyebrow">MESSAGE</h2>
+    <p class="hint">이나에게 축하 한마디를 남겨 주세요</p>
+    <ul class="guestbook" id="guestbook"></ul>
+    <button class="btn" type="button" data-open="msgModal">메시지 남기기</button>
+  </section>
+
+  <!-- 참석 여부 -->
+  <section class="sec rsvp reveal">
+    <h2 class="eyebrow">RSVP</h2>
+    <p class="rsvp-title">참석 의사</p>
+    <p class="hint">식사와 자리를 준비할 수 있게 미리 알려 주세요</p>
+    <div class="rsvp-card">
+      <p id="rsvpWho"></p>
+      <p id="rsvpWhen"></p>
+      <p id="rsvpWhere"></p>
+    </div>
+    <button class="btn" type="button" data-open="rsvpModal">참석 의사 전달하기</button>
+  </section>
+
+  <!-- 마무리 -->
+  <section class="sec closing reveal">
+    <div class="closing-photo ph" id="closingPhoto" data-label="마무리 사진"></div>
+    <p class="closing-text" id="closing"></p>
+    <div class="share">
+      <button class="btn" type="button" id="shareBtn">카카오톡으로 초대장 보내기</button>
+      <button class="btn ghost" type="button" id="copyLink">초대장 주소 복사</button>
+    </div>
+    <p class="foot">Made with love for 이나</p>
+  </section>
+</main>
+
+<!-- 테마 고르기 (config.showThemePicker) -->
+<div class="theme-picker" id="themePicker" hidden>
+  <span>테마색</span>
+  <div class="swatches" id="swatches"></div>
+</div>
+
+<!-- 모달들 -->
+<div class="modal" id="contactModal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <h3 id="contactTitle">축하 연락하기</h3>
+    <div class="contact-list" id="contactList"></div>
+    <button class="btn ghost" type="button" data-close>닫기</button>
+  </div>
+</div>
+
+<div class="modal" id="msgModal" hidden>
+  <form class="sheet" id="msgForm" role="dialog" aria-modal="true" aria-labelledby="msgTitle">
+    <h3 id="msgTitle">메시지 남기기</h3>
+    <label for="msgName">이름</label>
+    <input id="msgName" name="name" maxlength="20" required autocomplete="name">
+    <label for="msgBody">축하 메시지</label>
+    <textarea id="msgBody" name="message" maxlength="300" rows="5" required></textarea>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="form-note" id="msgNote" role="status"></p>
+    <div class="sheet-btns">
+      <button class="btn ghost" type="button" data-close>취소</button>
+      <button class="btn" type="submit">남기기</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal" id="rsvpModal" hidden>
+  <form class="sheet" id="rsvpForm" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle">
+    <h3 id="rsvpTitle">참석 의사 전달하기</h3>
+    <fieldset class="seg">
+      <legend>참석 여부</legend>
+      <label><input type="radio" name="attend" value="참석" checked> 참석할게요</label>
+      <label><input type="radio" name="attend" value="불참"> 어려워요</label>
+    </fieldset>
+    <label for="rsvpName">이름</label>
+    <input id="rsvpName" name="name" maxlength="20" required autocomplete="name">
+    <label for="rsvpCount">함께 오는 인원 (본인 포함)</label>
+    <input id="rsvpCount" name="count" type="number" min="1" max="20" value="1" inputmode="numeric">
+    <label for="rsvpMemo">전하실 말 (선택)</label>
+    <input id="rsvpMemo" name="memo" maxlength="100">
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="form-note" id="rsvpNote" role="status"></p>
+    <div class="sheet-btns">
+      <button class="btn ghost" type="button" data-close>취소</button>
+      <button class="btn" type="submit">전달하기</button>
+    </div>
+  </form>
+</div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lb-close" data-close aria-label="닫기">×</button>
+  <div class="lb-track" id="lbTrack"></div>
+  <span class="lb-count" id="lbCount"></span>
+</div>
+
+<div class="snack" id="snack" role="status"></div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
