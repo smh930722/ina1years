@@ -25,7 +25,7 @@ body {
   margin: 0; color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.8;
   background: var(--side); -webkit-font-smoothing: antialiased; word-break: keep-all;
 }
-.page { max-width: 430px; margin: 0 auto; background: var(--bg); min-height: 100vh; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,.06); }
+.page { max-width: 430px; margin: 0 auto; background: var(--bg); min-height: 100vh; overflow: clip; box-shadow: 0 0 40px rgba(0,0,0,.06); }
 button { font: inherit; color: inherit; }
 
 /* 사진 자리 */
@@ -244,3 +244,15 @@ button { font: inherit; color: inherit; }
   .cover-slide.on { transform: none; }
   .intro { display: none; }
 }
+
+/* 페이지 단위 스크롤: 드래그를 멈추면 가장 가까운 섹션 시작에 맞춰 선다.
+   화면보다 긴 섹션(오시는 길 등)은 그 안에서 자유롭게 스크롤된다. */
+html { scroll-snap-type: y mandatory; }
+.cover, .sec, .mid-photo { scroll-snap-align: start; }
+.cover { height: 100svh; min-height: 560px; }
+.sec { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+.sec > .btn { align-self: center; }
+.sec > :not(.btn):not(.vdate) { width: 100%; }
+.mid-photo { aspect-ratio: auto; height: 100svh; }
+.closing { justify-content: flex-start; }
+@media (prefers-reduced-motion: reduce) { html { scroll-snap-type: y proximity; } }
